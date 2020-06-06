@@ -1,14 +1,23 @@
 import React from 'react';
 import s from './Profile.module.css';
 import MyPosts from "./MyPosts/MyPosts";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
-const Profile = () => {
+type postsType = {
+    id: number,
+    message: string,
+    likesCount: number
+};
+
+type ProfilePageType = {
+    posts: Array<postsType>,
+};
+
+function Profile (props: ProfilePageType) {
     return (
-        <div className={s.content}>
-            <div><img src="https://cdn.downtoearth.org.in/library/large/2019-12-04/0.92334300_1575475699_17.jpg"
-                      alt=""/></div>
-            <div> avatar + description</div>
-            <MyPosts/>
+        <div>
+            <ProfileInfo/>
+            <MyPosts posts={props.posts}/>
         </div>
     )
 }
