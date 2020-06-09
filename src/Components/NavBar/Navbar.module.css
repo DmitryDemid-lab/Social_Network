@@ -1,6 +1,6 @@
 .nav {
     grid-area: n;
-    background-color: lightgreen;
+    background-color: #7ab9e5;
     padding: 20px;
 }
 
@@ -11,4 +11,14 @@
 
 .item a.activeLink {
     color: gold;
+}
+
+.friendsBlock {
+    margin-top: 100px;
+    color: aliceblue;
+}
+.friends {
+    padding: 10px 5px;
+    display: flex;
+    flex-direction: row;
 }

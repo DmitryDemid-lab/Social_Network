@@ -18,7 +18,7 @@ function App() {
         <BrowserRouter>
             <div className="app-wrapper">
                 <Header/>
-                <NavBar/>
+                <NavBar friends={state.sideBar.friends}/>
                 <div className="app-wrapper-content">
                     <Route path="/profile" render={() => <Profile posts={state.profilePage.posts}/>}/>
                     <Route path="/dialogs" render={() => <Dialogs dialogs={state.dialogsPage.dialogs} messages={state.dialogsPage.messages}/>}/>

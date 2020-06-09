@@ -10,7 +10,7 @@
 }
 
 .dialogsItems .active {
-    color: gold;
+    color: #ffd700;
 }
 
 .dialogsItems .dialog {
@@ -19,8 +19,26 @@
 
 .messages {
     padding: 10px;
+    background-color: #fff;
+    box-shadow: -6px 0 4px -4px rgba(0, 0, 0, .2);
+    height: 100%;
+}
+
+.messageEl {
+    display: flex;
+    flex-direction: row;
 }
 
 .messages .message {
     color: #fff;
+    background-color: #28717a;
+    margin: 5px;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.messageAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }
