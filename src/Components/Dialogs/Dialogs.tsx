@@ -2,29 +2,32 @@ import React from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
+import {DialogsPageType} from "../../redux/state";
 
-type dialogsType = {
-    id: number,
-    name: string,
-};
-type messagesType = {
-    id: number,
-    message: string,
-};
 
-type DialogsPageType = {
-    dialogs: Array<dialogsType>,
-    messages: Array<messagesType>
+
+type DialogsPagePropsType = {
+    dialogsPage: DialogsPageType,
+    addMessage: () => void,
+    updateNewMessageText: (newText: string) => void
 };
 
 
+function Dialogs(props: DialogsPagePropsType) {
 
+    let dialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
+    let messagesElements = props.dialogsPage.messages.map(m => <Message message={m.message}/>)
 
-function Dialogs(props:DialogsPageType) {
+    let newMessageElement = React.createRef<HTMLTextAreaElement>();
 
-    let dialogsElements = props.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
-    let messagesElements = props.messages.map(m => <Message message={m.message}/>)
+    function sendMessage() {
+        props.addMessage();
+    };
 
+    let onMessageChange = () => {
+        let text = newMessageElement.current!.value;
+        props.updateNewMessageText(text);
+    };
 
     return (
         <div className={s.dialogs}>
@@ -33,7 +36,13 @@ function Dialogs(props:DialogsPageType) {
             </div>
             <div className={s.messages}>
                 {messagesElements}
+                <textarea ref={newMessageElement}
+                          onChange={onMessageChange}
+                          value={props.dialogsPage.newMessageText}
+                />
+                <button onClick={sendMessage}>send</button>
             </div>
+
         </div>
     )
 }

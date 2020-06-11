@@ -8,23 +8,32 @@ import {BrowserRouter, Route} from "react-router-dom"
 import News from "./Components/News/News";
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
-import state from "./redux/state";
+import state, {addMessage, addPost, updateNewMessageText, updateNewPostTex} from "./redux/state";
 
 
 function App() {
-
-
     return (
         <BrowserRouter>
             <div className="app-wrapper">
                 <Header/>
                 <NavBar friends={state.sideBar.friends}/>
                 <div className="app-wrapper-content">
-                    <Route path="/profile" render={() => <Profile posts={state.profilePage.posts}/>}/>
-                    <Route path="/dialogs" render={() => <Dialogs dialogs={state.dialogsPage.dialogs} messages={state.dialogsPage.messages}/>}/>
-                    <Route path="/news" render={() => <News/>}/>
-                    <Route path="/music" render={() => <Music/>}/>
-                    <Route path="/settings" render={() => <Settings/>}/>
+                    <Route path="/profile"
+                           render={() => <Profile profilePage={state.profilePage}
+                                                  addPost={addPost}
+                                                  updateNewPostTex={updateNewPostTex}
+                           />}/>
+                    <Route path="/dialogs"
+                           render={() => <Dialogs dialogsPage={state.dialogsPage}
+                                                  addMessage={addMessage}
+                                                  updateNewMessageText={updateNewMessageText}
+                           />}/>
+                    <Route path="/news"
+                           render={() => <News/>}/>
+                    <Route path="/music"
+                           render={() => <Music/>}/>
+                    <Route path="/settings"
+                           render={() => <Settings/>}/>
                 </div>
             </div>
         </BrowserRouter>
