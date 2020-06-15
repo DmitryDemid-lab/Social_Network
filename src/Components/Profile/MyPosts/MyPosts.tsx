@@ -1,7 +1,7 @@
 import React, {createRef} from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {postsType, updateNewPostTex} from "../../../redux/state";
+import {postsType} from "../../../redux/state";
 
 type myPostsType = {
     posts: Array<postsType>,
@@ -17,6 +17,7 @@ function MyPosts(props: myPostsType) {
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     let addPost = () => {
+        debugger;
         props.addPost();
     };
 
