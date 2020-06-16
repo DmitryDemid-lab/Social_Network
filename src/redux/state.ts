@@ -103,7 +103,7 @@ let store: StoreType = {
         console.log('State changed');
     },
     addPost() {
-        let newPost = {
+        let newPost: postsType = {
             id: 5,
             message: this._state.profilePage.newPostText,
             likesCount: 0
