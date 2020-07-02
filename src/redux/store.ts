@@ -43,8 +43,8 @@ export type RootStateType = {
 
 type StoreType = {
     _state: RootStateType,
-    _callSubscriber: () => void,
-    subscribe: (observer: () => void) => void,
+    _callSubscriber: (state: RootStateType) => void,
+    subscribe: (observer:any) => void,
     getState: () => RootStateType
     dispatch: (action: any) => void
 };
@@ -102,7 +102,7 @@ let store: StoreType = {
     getState() {
         return this._state
     },
-    subscribe(observer: () => void) {
+    subscribe(observer: any) {
         this._callSubscriber = observer;
     },
 
@@ -110,7 +110,7 @@ let store: StoreType = {
         this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
         this._state.sideBar = sideBarReducer(this._state.sideBar, action);
-        this._callSubscriber()
+        this._callSubscriber(this._state)
     }
 }
 

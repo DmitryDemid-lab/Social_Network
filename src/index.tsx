@@ -3,10 +3,10 @@ import './index.css';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import store from "./redux/store";
+import store, {RootStateType} from "./redux/store";
 
 
-let rerenderEntireTree = () => {
+let rerenderEntireTree = (state: RootStateType) => {
     ReactDOM.render(
         <React.StrictMode>
             <App/>
@@ -14,7 +14,7 @@ let rerenderEntireTree = () => {
         document.getElementById('root')
     );
 };
-rerenderEntireTree();
+rerenderEntireTree(store.getState());
 store.subscribe(rerenderEntireTree);
 
 // If you want your app to work offline and load faster, you can change
