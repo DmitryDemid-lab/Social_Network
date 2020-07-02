@@ -51,6 +51,11 @@ type StoreType = {
     dispatch: (action: any) => void
 };
 
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const ADD_MESSAGE = 'ADD-MESSAGE';
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
+
 
 let store: StoreType = {
     _state: {
@@ -139,7 +144,7 @@ let store: StoreType = {
     },*/
 
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
+        if (action.type === ADD_POST) {
             let newPost: postsType = {
                 id: 5,
                 message: this._state.profilePage.newPostText,
@@ -148,10 +153,10 @@ let store: StoreType = {
             this._state.profilePage.posts.unshift(newPost);
             this._state.profilePage.newPostText = '';
             this._callSubscriber();
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText;
             this._callSubscriber();
-        } else if (action.type === 'ADD-MESSAGE') {
+        } else if (action.type === ADD_MESSAGE) {
             let newMessage = {
                 id: 6,
                 message: this._state.dialogsPage.newMessageText
@@ -159,7 +164,7 @@ let store: StoreType = {
             this._state.dialogsPage.messages.push(newMessage);
             this._state.dialogsPage.newMessageText = '';
             this._callSubscriber();
-        } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
+        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
             this._state.dialogsPage.newMessageText = action.newText;
             this._callSubscriber();
         }
@@ -167,11 +172,19 @@ let store: StoreType = {
 }
 
 export const addPostActionCreator = () => {
-    return  { type: 'ADD-POST' }
+    return  { type: ADD_POST }
 }
 
 export const updateNewPostTextActionCreator = (text: string) => {
-    return { type: 'UPDATE-NEW-POST-TEXT', newText: text }
+    return { type: UPDATE_NEW_POST_TEXT, newText: text }
+}
+
+export const addMessageActionCreator = () => {
+    return  { type: ADD_MESSAGE }
+}
+
+export const updateNewMessageTextActionCreator = (text: string) => {
+    return { type: UPDATE_NEW_MESSAGE_TEXT, newText: text }
 }
 
 /*
