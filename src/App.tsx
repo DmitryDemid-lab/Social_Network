@@ -17,7 +17,7 @@ function App() {
         <BrowserRouter>
             <div className="app-wrapper">
                 <Header/>
-                <NavBar friends={state}/>
+                <NavBar friends={state.sideBar.friends}/>
                 <div className="app-wrapper-content">
                     <Route path="/profile"
                            render={() => <Profile profilePage={state.profilePage}

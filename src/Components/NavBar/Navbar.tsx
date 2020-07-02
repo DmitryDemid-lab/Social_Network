@@ -16,7 +16,7 @@ type SideBarType = {
 const NavBar = (props: SideBarType) => {
 
 
-    //let newFriends = props.friends.map(f => <Friends name={f.name} url={f.url} key={f.id}/>)
+    let newFriends = props.friends.map(fr => <Friends name={fr.name} url={fr.url} key={fr.id}/>)
 
     return (
         <nav className={s.nav}>
@@ -39,7 +39,7 @@ const NavBar = (props: SideBarType) => {
             <div className={s.friendsBlock}>
                 Friends:
                 <div className={s.friends}>
-                    {/*{newFriends}*/}
+                    {newFriends}
                 </div>
             </div>
         </nav>
