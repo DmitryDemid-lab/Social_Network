@@ -1,6 +1,6 @@
-import {RootStateType} from "./state";
+import {SideBarType} from "./store";
 
-const sideBarReducer = (state:RootStateType, action:any) => {
+const sideBarReducer = (state:SideBarType, action:any) => {
 
     return state;
 }

@@ -43,9 +43,9 @@ export type RootStateType = {
 
 type StoreType = {
     _state: RootStateType,
-    _callSubscriber: ()=>void,
-    subscribe: (observer: () => void)=>void,
-    getState: ()=> RootStateType
+    _callSubscriber: () => void,
+    subscribe: (observer: () => void) => void,
+    getState: () => RootStateType
     dispatch: (action: any) => void
 };
 
@@ -99,46 +99,17 @@ let store: StoreType = {
         console.log('State changed');
     },
 
-    getState (){
+    getState() {
         return this._state
     },
     subscribe(observer: () => void) {
         this._callSubscriber = observer;
     },
 
-    /*addPost() {
-        let newPost: postsType = {
-            id: 5,
-            message: this._state.profilePage.newPostText,
-            likesCount: 0
-        };
-        this._state.profilePage.posts.unshift(newPost);
-        this._state.profilePage.newPostText = '';
-        this._callSubscriber();
-    },
-    updateNewPostTex(newText: string) {
-        this._state.profilePage.newPostText = newText;
-        this._callSubscriber();
-    },
-
-    addMessage() {
-        let newMessage = {
-            id: 6,
-            message: this._state.dialogsPage.newMessageText
-        }
-        this._state.dialogsPage.messages.push(newMessage);
-        this._state.dialogsPage.newMessageText = '';
-        this._callSubscriber();
-    },
-    updateNewMessageText(newText: string) {
-        this._state.dialogsPage.newMessageText = newText;
-        this._callSubscriber();
-    },*/
-
     dispatch(action) {
-        this._state = profileReducer(this._state, action);
-        this._state = dialogsReducer(this._state, action);
-        this._state = sideBarReducer(this._state, action);
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.sideBar = sideBarReducer(this._state.sideBar, action);
         this._callSubscriber()
     }
 }
