@@ -21,13 +21,11 @@ function App() {
                 <div className="app-wrapper-content">
                     <Route path="/profile"
                            render={() => <Profile profilePage={state.profilePage}
-                                                  addPost={store.addPost.bind(store)}
-                                                  updateNewPostTex={store.updateNewPostTex.bind(store)}
+                                                  dispatch={store.dispatch.bind(store)}
                            />}/>
                     <Route path="/dialogs"
                            render={() => <Dialogs dialogsPage={state.dialogsPage}
-                                                  addMessage={store.addMessage.bind(store)}
-                                                  updateNewMessageText={store.updateNewMessageText.bind(store)}
+                                                  dispatch={store.dispatch.bind(store)}
                            />}/>
                     <Route path="/news"
                            render={() => <News/>}/>

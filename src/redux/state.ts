@@ -37,16 +37,18 @@ export type RootStateType = {
 };
 
 
-
 type StoreType = {
     _state: RootStateType,
     _callSubscriber: ()=>void,
-    addPost: ()=>void,
+    subscribe: (observer: () => void)=>void,
+    getState: ()=> any
+
+    /*addPost: ()=>void,
     updateNewPostTex: (newText: string)=>void,
     addMessage: ()=>void,
-    updateNewMessageText: (newText: string)=>void,
-    subscribe: (observer: () => void)=>void,
-    getState: ()=>any
+    updateNewMessageText: (newText: string)=>void,*/
+
+    dispatch: (action: any) => void
 };
 
 
@@ -96,13 +98,18 @@ let store: StoreType = {
             ]
         }
     },
-    getState (){
-        return this._state
-    },
     _callSubscriber() {
         console.log('State changed');
     },
-    addPost() {
+
+    getState (){
+        return this._state
+    },
+    subscribe(observer: () => void) {
+        this._callSubscriber = observer;
+    },
+
+    /*addPost() {
         let newPost: postsType = {
             id: 5,
             message: this._state.profilePage.newPostText,
@@ -116,6 +123,7 @@ let store: StoreType = {
         this._state.profilePage.newPostText = newText;
         this._callSubscriber();
     },
+
     addMessage() {
         let newMessage = {
             id: 6,
@@ -128,9 +136,33 @@ let store: StoreType = {
     updateNewMessageText(newText: string) {
         this._state.dialogsPage.newMessageText = newText;
         this._callSubscriber();
-    },
-    subscribe(observer: () => void) {
-        this._callSubscriber = observer;
+    },*/
+
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            let newPost: postsType = {
+                id: 5,
+                message: this._state.profilePage.newPostText,
+                likesCount: 0
+            };
+            this._state.profilePage.posts.unshift(newPost);
+            this._state.profilePage.newPostText = '';
+            this._callSubscriber();
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber();
+        } else if (action.type === 'ADD-MESSAGE') {
+            let newMessage = {
+                id: 6,
+                message: this._state.dialogsPage.newMessageText
+            }
+            this._state.dialogsPage.messages.push(newMessage);
+            this._state.dialogsPage.newMessageText = '';
+            this._callSubscriber();
+        } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
+            this._state.dialogsPage.newMessageText = action.newText;
+            this._callSubscriber();
+        }
     }
 }
 

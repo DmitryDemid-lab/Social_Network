@@ -1,13 +1,14 @@
-import React, {createRef} from 'react';
+import React, {Dispatch} from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {postsType} from "../../../redux/state";
 
 type myPostsType = {
     posts: Array<postsType>,
-    addPost: () => void,
+    /*addPost: () => void,
+    updateNewPostTex: (newText: string) => void,*/
     newPostText: string,
-    updateNewPostTex: (newText: string) => void,
+    dispatch: any
 }
 
 function MyPosts(props: myPostsType) {
@@ -17,12 +18,14 @@ function MyPosts(props: myPostsType) {
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     let addPost = () => {
-        props.addPost();
+        //props.addPost();
+        props.dispatch({ type: 'ADD-POST' })
     };
 
     let onPostChangeHandler = () => {
         let text = newPostElement.current!.value;
-        props.updateNewPostTex(text);
+        //props.updateNewPostTex(text);
+        props.dispatch({ type: 'UPDATE-NEW-POST-TEXT', newText: text })
     };
 
 

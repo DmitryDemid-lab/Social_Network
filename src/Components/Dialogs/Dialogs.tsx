@@ -8,8 +8,9 @@ import {DialogsPageType} from "../../redux/state";
 
 type DialogsPagePropsType = {
     dialogsPage: DialogsPageType,
-    addMessage: () => void,
-    updateNewMessageText: (newText: string) => void
+    /*addMessage: () => void,
+    updateNewMessageText: (newText: string) => void*/
+    dispatch: any
 };
 
 
@@ -21,12 +22,12 @@ function Dialogs(props: DialogsPagePropsType) {
     let newMessageElement = React.createRef<HTMLTextAreaElement>();
 
     function sendMessage() {
-        props.addMessage();
+        props.dispatch({type: 'ADD-MESSAGE'});
     };
 
     let onMessageChange = () => {
         let text = newMessageElement.current!.value;
-        props.updateNewMessageText(text);
+        props.dispatch({type: 'UPDATE-NEW-MESSAGE-TEXT', newText: text});
     };
 
     return (
