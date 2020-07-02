@@ -1,4 +1,4 @@
-import React, {Dispatch} from 'react';
+import React, {ChangeEvent, Dispatch} from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {addPostActionCreator, postsType, updateNewPostTextActionCreator} from "../../../redux/state";
@@ -16,15 +16,14 @@ function MyPosts(props: myPostsType) {
 
     let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
 
-    let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     let addPost = () => {
         //props.addPost();
         props.dispatch(addPostActionCreator())
     };
 
-    let onPostChangeHandler = () => {
-        let text = newPostElement.current!.value;
+    let onPostChangeHandler = (e:ChangeEvent<HTMLTextAreaElement>) => {
+        let text = e.currentTarget.value;
         //props.updateNewPostTex(text);
         props.dispatch(updateNewPostTextActionCreator(text))
     };
@@ -36,7 +35,6 @@ function MyPosts(props: myPostsType) {
             <div>
                 <div>
                     <textarea onChange={onPostChangeHandler}
-                              ref={newPostElement}
                               value={props.newPostText}
                     />
                 </div>

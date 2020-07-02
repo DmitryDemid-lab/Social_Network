@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
@@ -19,14 +19,12 @@ function Dialogs(props: DialogsPagePropsType) {
     let dialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
     let messagesElements = props.dialogsPage.messages.map(m => <Message message={m.message}/>)
 
-    let newMessageElement = React.createRef<HTMLTextAreaElement>();
-
     function sendMessage() {
         props.dispatch(addMessageActionCreator());
     };
 
-    let onMessageChange = () => {
-        let text = newMessageElement.current!.value;
+    let onMessageChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
+        let text = e.currentTarget.value;
         props.dispatch(updateNewMessageTextActionCreator(text));
     };
 
@@ -37,9 +35,10 @@ function Dialogs(props: DialogsPagePropsType) {
             </div>
             <div className={s.messages}>
                 {messagesElements}
-                <textarea ref={newMessageElement}
+                <textarea
                           onChange={onMessageChange}
                           value={props.dialogsPage.newMessageText}
+                          placeholder={"Enter your message"}
                 />
                 <button onClick={sendMessage}>send</button>
             </div>
