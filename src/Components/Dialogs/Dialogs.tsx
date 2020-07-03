@@ -3,15 +3,12 @@ import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogsItem";
 import Message from "./Message/Message";
 import {DialogsPageType} from "../../redux/store";
-import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../redux/dialogsReducer";
-
 
 
 type DialogsPagePropsType = {
     dialogsPage: DialogsPageType,
-    /*addMessage: () => void,
-    updateNewMessageText: (newText: string) => void*/
-    dispatch: any
+    addMessage: () => void,
+    updateNewMessageText: (newText: string) => void
 };
 
 
@@ -21,12 +18,12 @@ function Dialogs(props: DialogsPagePropsType) {
     let messagesElements = props.dialogsPage.messages.map(m => <Message message={m.message}/>)
 
     function sendMessage() {
-        props.dispatch(addMessageActionCreator());
+        props.addMessage()
     };
 
-    let onMessageChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
+    let onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let text = e.currentTarget.value;
-        props.dispatch(updateNewMessageTextActionCreator(text));
+        props.updateNewMessageText(text);
     };
 
     return (
@@ -37,9 +34,9 @@ function Dialogs(props: DialogsPagePropsType) {
             <div className={s.messages}>
                 {messagesElements}
                 <textarea
-                          onChange={onMessageChange}
-                          value={props.dialogsPage.newMessageText}
-                          placeholder={"Enter your message"}
+                    onChange={onMessageChange}
+                    value={props.dialogsPage.newMessageText}
+                    placeholder={"Enter your message"}
                 />
                 <button onClick={sendMessage}>send</button>
             </div>
