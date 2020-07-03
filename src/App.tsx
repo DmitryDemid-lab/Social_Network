@@ -10,6 +10,7 @@ import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 // import store from "./redux/store";
 import store from "./redux/reduxStore"
+import DialogsContainer from "./Components/Dialogs/Message/DialogsContainer";
 
 function App() {
     let state = store.getState();
@@ -20,13 +21,10 @@ function App() {
                 <NavBar friends={state.sideBar.friends}/>
                 <div className="app-wrapper-content">
                     <Route path="/profile"
-                           render={() => <Profile profilePage={state.profilePage}
-                                                  dispatch={store.dispatch.bind(store)}
-                           />}/>
+                           render={() => <Profile store={store}/>
+                           }/>
                     <Route path="/dialogs"
-                           render={() => <Dialogs dialogsPage={state.dialogsPage}
-                                                  dispatch={store.dispatch.bind(store)}
-                           />}/>
+                           render={() => <DialogsContainer store={store}/>}/>
                     <Route path="/news"
                            render={() => <News/>}/>
                     <Route path="/music"
