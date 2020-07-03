@@ -1,7 +1,5 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../../redux/dialogsReducer";
-import DialogItem from "../DialogItem/DialogsItem";
-import Message from "./Message";
 import Dialogs from "../Dialogs";
 
 
@@ -18,7 +16,7 @@ function DialogsContainer(props: DialogsPagePropsType) {
         props.store.dispatch(addMessageActionCreator());
     };
 
-    let onMessageChange = (text:string) => {
+    let onMessageChange = (text: string) => {
         props.store.dispatch(updateNewMessageTextActionCreator(text));
     };
 
