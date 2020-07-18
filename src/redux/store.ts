@@ -41,7 +41,7 @@ export type RootStateType = {
 };
 
 
-type StoreType = {
+export type StoreType = {
     _state: RootStateType,
     _callSubscriber: (state: RootStateType) => void,
     subscribe: (observer:any) => void,

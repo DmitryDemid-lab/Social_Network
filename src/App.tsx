@@ -3,7 +3,7 @@ import './App.css';
 import Header from "./Components/Header/Header";
 import NavBar from "./Components/NavBar/Navbar";
 import Profile from "./Components/Profile/Profile";
-import {BrowserRouter, Route} from "react-router-dom"
+import {Route} from "react-router-dom"
 import News from "./Components/News/News";
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
@@ -13,25 +13,23 @@ import DialogsContainer from "./Components/Dialogs/Message/DialogsContainer";
 function App() {
     let state = store.getState();
     return (
-        <BrowserRouter>
-            <div className="app-wrapper">
-                <Header/>
-                <NavBar friends={state.sideBar.friends}/>
-                <div className="app-wrapper-content">
-                    <Route path="/profile"
-                           render={() => <Profile store={store}/>
-                           }/>
-                    <Route path="/dialogs"
-                           render={() => <DialogsContainer store={store}/>}/>
-                    <Route path="/news"
-                           render={() => <News/>}/>
-                    <Route path="/music"
-                           render={() => <Music/>}/>
-                    <Route path="/settings"
-                           render={() => <Settings/>}/>
-                </div>
+        <div className="app-wrapper">
+            <Header/>
+            <NavBar friends={state.sideBar.friends}/>
+            <div className="app-wrapper-content">
+                <Route path="/profile"
+                       render={() => <Profile/>
+                       }/>
+                <Route path="/dialogs"
+                       render={() => <DialogsContainer/>}/>
+                <Route path="/news"
+                       render={() => <News/>}/>
+                <Route path="/music"
+                       render={() => <Music/>}/>
+                <Route path="/settings"
+                       render={() => <Settings/>}/>
             </div>
-        </BrowserRouter>
+        </div>
     )
 }
 
