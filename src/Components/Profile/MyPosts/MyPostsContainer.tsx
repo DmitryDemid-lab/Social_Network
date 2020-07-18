@@ -1,46 +1,27 @@
 import React from 'react';
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profileReducer";
 import MyPosts from "./MyPosts";
-import StoreContext from "../../../StoreContext";
-
-type myPostsType = {}
+import {connect} from "react-redux";
 
 
-function MyPostsContainer(props: myPostsType) {
-   /* let state = props.store.getState();
+const MapStateToProps = (state: any) => {
+    return {
+        posts: state.profilePage.posts,
+        newPostText: state.profilePage.newPostText
+    }
+}
 
-    let addPost = () => {
-        props.store.dispatch(addPostActionCreator())
-    };
+const MapDispatchToProps = (dispatch: any) => {
+    return {
+        addPost: () => {
+            dispatch(addPostActionCreator())
+        },
+        updateNewPostTex: (text: string) => {
+            dispatch(updateNewPostTextActionCreator(text))
+        }
+    }
+}
 
-    let onPostChangeHandler = (text: string) => {
-        let action = updateNewPostTextActionCreator(text);
-        props.store.dispatch(action)
-    };*/
-
-
-    return (
-        <StoreContext.Consumer>
-            {
-                (store) => {
-                    let state = store.getState();
-
-                    let addPost = () => {
-                        store.dispatch(addPostActionCreator())
-                    };
-
-                    let onPostChangeHandler = (text: string) => {
-                        let action = updateNewPostTextActionCreator(text);
-                        store.dispatch(action)
-                    };
-                    return (<MyPosts posts={state.profilePage.posts}
-                                     addPost={addPost}
-                                     updateNewPostTex={onPostChangeHandler}
-                                     newPostText={state.profilePage.newPostText}/>)
-                }
-            }
-        </StoreContext.Consumer>
-    )
-};
+const MyPostsContainer = connect(MapStateToProps, MapDispatchToProps)(MyPosts)
 
 export default MyPostsContainer;
