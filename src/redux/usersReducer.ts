@@ -36,32 +36,7 @@ export type SetUsersACType = {
 export type UsersActionsType = FollowACType | UnFollowACType | SetUsersACType;
 
 let initialState: UsersStateType = {
-    users: [
-        {
-            id: 1,
-            followed: false,
-            fullName: "Dmitry",
-            status: "I'm boss",
-            location: {city: "Minsk", country: "Belarus"},
-            photoUrl: 'https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/7_avatar-512.png',
-        },
-        {
-            id: 2,
-            followed: true,
-            fullName: "Ivan",
-            status: "I'm driver",
-            location: {city: "Moscow", country: "Russia"},
-            photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQwoSHAek_PYhnfDL4yEwo-EJY4njm1q2_xew&usqp=CAU',
-        },
-        {
-            id: 3,
-            followed: false,
-            fullName: "Sasha",
-            status: "I'm manager",
-            location: {city: "kiev", country: "Ukraine"},
-            photoUrl: 'https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/8_avatar-512.png',
-        },
-    ],
+    users: [],
 };
 
 const usersReducer = (state = initialState, action: UsersActionsType): UsersStateType => {
