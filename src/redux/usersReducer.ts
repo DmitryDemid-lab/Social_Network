@@ -10,25 +10,61 @@ export type UsersLocationType = {
 export type UsersType = {
     id: number
     followed: boolean
+    photoUrl: string
     fullName: string
     status: string
     location: UsersLocationType
 }
 
-type UsersStateType = {
+export type UsersStateType = {
     users: Array<UsersType>
 }
 
+export type FollowACType = {
+    type: typeof FOLLOW,
+    userID: number
+}
+export type UnFollowACType = {
+    type: typeof UNFOLLOW,
+    userID: number
+}
+export type SetUsersACType = {
+    type: typeof SET_USERS,
+    users: Array<UsersType>
+}
+
+export type UsersActionsType = FollowACType | UnFollowACType | SetUsersACType;
+
 let initialState: UsersStateType = {
     users: [
-        /*{id: 1, followed: false, fullName: "Dmitry", status: "I'm boss", location: {city: "Minsk", country: "Belarus"}},
-        {id: 2, followed: true, fullName: "Ivan", status: "I'm driver", location: {city: "Moscow", country: "Russia"}},
-        {id: 3, followed: false, fullName: "Sasha", status: "I'm manager", location: {city: "kiev", country: "Ukraine"}
-        },*/
+        {
+            id: 1,
+            followed: false,
+            fullName: "Dmitry",
+            status: "I'm boss",
+            location: {city: "Minsk", country: "Belarus"},
+            photoUrl: 'https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/7_avatar-512.png',
+        },
+        {
+            id: 2,
+            followed: true,
+            fullName: "Ivan",
+            status: "I'm driver",
+            location: {city: "Moscow", country: "Russia"},
+            photoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQwoSHAek_PYhnfDL4yEwo-EJY4njm1q2_xew&usqp=CAU',
+        },
+        {
+            id: 3,
+            followed: false,
+            fullName: "Sasha",
+            status: "I'm manager",
+            location: {city: "kiev", country: "Ukraine"},
+            photoUrl: 'https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/8_avatar-512.png',
+        },
     ],
 };
 
-const usersReducer = (state = initialState, action: any): UsersStateType => {
+const usersReducer = (state = initialState, action: UsersActionsType): UsersStateType => {
     switch (action.type) {
         case FOLLOW: {
             return {
@@ -60,8 +96,8 @@ const usersReducer = (state = initialState, action: any): UsersStateType => {
     }
 }
 
-export const followAC = (userID: number) => ({type: FOLLOW, userID})
-export const unFollowAC = (userID: number) => ({type: UNFOLLOW, userID})
-export const setUsersAC = (users: UsersType) => ({type: SET_USERS, users})
+export const followAC = (userID: number): FollowACType => ({type: FOLLOW, userID})
+export const unFollowAC = (userID: number): UnFollowACType => ({type: UNFOLLOW, userID})
+export const setUsersAC = (users: Array<UsersType>): SetUsersACType => ({type: SET_USERS, users})
 
 export default usersReducer;
