@@ -9,6 +9,7 @@ import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 import store from "./redux/reduxStore"
 import DialogsContainer from "./Components/Dialogs/Message/DialogsContainer";
+import Users from "./Components/Users/Users";
 
 function App() {
     let state = store.getState();
@@ -28,6 +29,8 @@ function App() {
                        render={() => <Music/>}/>
                 <Route path="/settings"
                        render={() => <Settings/>}/>
+                       <Route path="/users"
+                       render={() => <Users/>}/>
             </div>
         </div>
     )
