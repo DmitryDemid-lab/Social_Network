@@ -1,6 +1,6 @@
-import profileReducer from "./profileReducer";
-import dialogsReducer from "./dialogsReducer";
-import sideBarReducer from "./sideBarReducer";
+import profileReducer from "./ProfileReducer/profileReducer";
+import dialogsReducer from "./DialogsReducer/dialogsReducer";
+import sideBarReducer from "./SideBarReducer/sideBarReducer";
 
 export type postsType = {
     id: number,

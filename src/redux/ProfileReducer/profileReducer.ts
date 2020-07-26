@@ -1,4 +1,4 @@
-import {postsType, ProfilePageType} from "./store";
+import {postsType, ProfilePageType} from "../store";
 
 export type AddPostActionCreatorType = {
     type: typeof ADD_POST,

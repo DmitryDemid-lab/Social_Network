@@ -1,4 +1,4 @@
-import {SideBarType} from "./store";
+import {SideBarType} from "../store";
 
 export type SideBarActionsType = {};
 
