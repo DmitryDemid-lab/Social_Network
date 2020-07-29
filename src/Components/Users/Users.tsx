@@ -1,6 +1,8 @@
 import React from 'react';
+import axios from 'axios'
 import s from './Users.module.css';
 import {UsersType} from "../../redux/UsersReducer/usersReducer";
+import userPhoto from '../../assets/images/logo192.png'
 
 type UsersPropsType = {
     users: Array<UsersType>
@@ -10,9 +12,13 @@ type UsersPropsType = {
 }
 
 const Users = (props: UsersPropsType) => {
-
     if (props.users.length === 0) {
-        props.setUsers([
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then((response:any) => (
+            props.setUsers(response.data.items)
+            )
+        );
+
+        /*props.setUsers([
             {
                 id: 1,
                 followed: false,
@@ -37,14 +43,14 @@ const Users = (props: UsersPropsType) => {
                 location: {city: "kiev", country: "Ukraine"},
                 photoUrl: 'https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/8_avatar-512.png',
             }
-        ])
+        ])*/
     }
     return (
         <div className={s.Users}>
             {props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
-                        <img src={u.photoUrl} alt="avatar" className={s.avatar}/>
+                        <img src={u.photos.small !== null ? u.photos.small : userPhoto} alt="avatar" className={s.avatar}/>
                     </div>
                     <div>
                         {u.followed
@@ -58,12 +64,12 @@ const Users = (props: UsersPropsType) => {
                 </span>
                 <span>
                     <span>
-                        <div>{u.fullName}</div>
+                        <div>{u.name}</div>
                         <div>{u.status}</div>
                     </span>
                     <span>
-                        <div>{u.location.country}</div>
-                        <div>{u.location.city}</div>
+                        <div>{'u.location.country'}</div>
+                        <div>{'u.location.city'}</div>
                     </span>
                 </span>
             </div>)}
