@@ -1,8 +1,8 @@
 import {ProfilePageType} from "../store";
-import profileReducer, {addPostActionCreator, updateNewPostTextActionCreator} from "./profileReducer";
+import profileReducer, {addPost, updateNewPostText} from "./profileReducer";
 
 test('correct post should be added', () => {
-    const initialState:ProfilePageType = {
+    const initialState:any = {
         posts: [
             {id: 1, message: "Hi, how are u?", likesCount: 15},
             {id: 2, message: "It's my first post!", likesCount: 20}
@@ -10,7 +10,7 @@ test('correct post should be added', () => {
         newPostText: ""
     };
 
-    const action = addPostActionCreator();
+    const action = addPost();
 
     const endState = profileReducer(initialState, action)
 
@@ -19,7 +19,7 @@ test('correct post should be added', () => {
 });
 
 test('new post text should be updated', () => {
-    const initialState:ProfilePageType = {
+    const initialState:any = {
         posts: [
             {id: 1, message: "Hi, how are u?", likesCount: 15},
             {id: 2, message: "It's my first post!", likesCount: 20}
@@ -27,7 +27,7 @@ test('new post text should be updated', () => {
         newPostText: ""
     };
 
-    const action = updateNewPostTextActionCreator("I'm the best");
+    const action = updateNewPostText("I'm the best");
 
     const endState = profileReducer(initialState, action)
 
@@ -35,7 +35,7 @@ test('new post text should be updated', () => {
 });
 
 test('correct post should be added with correct post text', () => {
-    const initialState:ProfilePageType = {
+    const initialState:any = {
         posts: [
             {id: 1, message: "Hi, how are u?", likesCount: 15},
             {id: 2, message: "It's my first post!", likesCount: 20}
@@ -43,10 +43,10 @@ test('correct post should be added with correct post text', () => {
         newPostText: ""
     };
 
-    const action1 = updateNewPostTextActionCreator("I'm the best");
+    const action1 = updateNewPostText("I'm the best");
     const middleState = profileReducer(initialState, action1)
 
-    const action2 = addPostActionCreator();
+    const action2 = addPost();
     const endState = profileReducer(middleState, action2)
 
     expect(middleState.newPostText).toBe("I'm the best");
