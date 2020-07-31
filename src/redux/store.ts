@@ -1,3 +1,4 @@
+
 import profileReducer from "./ProfileReducer/profileReducer";
 import dialogsReducer from "./DialogsReducer/dialogsReducer";
 import sideBarReducer from "./SideBarReducer/sideBarReducer";
@@ -49,6 +50,7 @@ export type StoreType = {
     dispatch: (action: any) => void
 };
 
+/*
 let store: StoreType = {
     _state: {
         profilePage: {
@@ -106,12 +108,11 @@ let store: StoreType = {
         this._callSubscriber = observer;
     },
 
-    dispatch(action) {
+  /!*  dispatch(action) {
         this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
         this._state.sideBar = sideBarReducer(this._state.sideBar, action);
         this._callSubscriber(this._state)
-    }
+    }*!/
 }
-
-export default store;
+*/

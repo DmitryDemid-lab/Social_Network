@@ -10,6 +10,7 @@ import Settings from "./Components/Settings/Settings";
 import store from "./redux/reduxStore"
 import DialogsContainer from "./Components/Dialogs/Message/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
+import ProfileContainer from "./Components/Profile/ProfileContainer";
 
 function App() {
     let state = store.getState();
@@ -19,7 +20,7 @@ function App() {
             <NavBar friends={state.sideBar.friends}/>
             <div className="app-wrapper-content">
                 <Route path="/profile"
-                       render={() => <Profile/>
+                       render={() => <ProfileContainer/>
                        }/>
                 <Route path="/dialogs"
                        render={() => <DialogsContainer/>}/>
