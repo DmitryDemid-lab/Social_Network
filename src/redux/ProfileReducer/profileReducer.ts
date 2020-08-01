@@ -37,6 +37,7 @@ export type profileInfoPhotosType = {
 
 export type profileInfoType = {
     userId?: number
+    aboutMe?: string
     lookingForAJob?: boolean
     lookingForAJobDescription?: string
     fullName?: string
