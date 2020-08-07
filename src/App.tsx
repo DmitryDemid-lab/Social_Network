@@ -1,8 +1,6 @@
 import React from 'react';
 import './App.css';
-import Header from "./Components/Header/Header";
 import NavBar from "./Components/NavBar/Navbar";
-import Profile from "./Components/Profile/Profile";
 import {Route} from "react-router-dom"
 import News from "./Components/News/News";
 import Music from "./Components/Music/Music";
@@ -11,12 +9,14 @@ import store from "./redux/reduxStore"
 import DialogsContainer from "./Components/Dialogs/Message/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
+import HeaderContainer from "./Components/Header/Header.container";
+import HeaderConnect from "./Components/Header/Header.container";
 
 function App() {
     let state = store.getState();
     return (
         <div className="app-wrapper">
-            <Header/>
+            <HeaderConnect />
             <NavBar friends={state.sideBar.friends}/>
             <div className="app-wrapper-content">
                 <Route path="/profile/:userId?"
@@ -30,7 +30,7 @@ function App() {
                        render={() => <Music/>}/>
                 <Route path="/settings"
                        render={() => <Settings/>}/>
-                       <Route path="/users"
+                <Route path="/users"
                        render={() => <UsersContainer/>}/>
             </div>
         </div>
