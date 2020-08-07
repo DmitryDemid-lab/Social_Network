@@ -11,7 +11,6 @@ import {
     UsersStateType,
     UsersType
 } from "../../redux/UsersReducer/usersReducer";
-import axios from "axios";
 import UsersFunc from "./UsersFunc";
 import Preloader from "../common/preloader/Preloader";
 import {usersAPI} from "../../API/API";
@@ -80,29 +79,6 @@ const MapStateToProps = (state: AppStateType): UsersStateType => {
         isFetching: state.usersPage.isFetching,
     };
 };
-
-/*const MapDispatchToProps = (dispatch: any): UsersMapDispatchToPropsType => {
-    return {
-        follow: (userID: number) => {
-            dispatch(followAC(userID));
-        },
-        unFollow: (userID: number) => {
-            dispatch(unFollowAC(userID));
-        },
-        setUsers: (users: Array<UsersType>) => {
-            dispatch(setUsersAC(users));
-        },
-        setCurrentPage: (currentPage: number) => {
-            dispatch(setCurrentPageAC(currentPage));
-        },
-        setTotalUsersCount: (totalCount: number) => {
-            dispatch(setTotalUsersCountAC(totalCount))
-        },
-        toggleIsFetching: (isFetching: boolean) => {
-            dispatch(toggleIsFetchingAC(isFetching))
-        }
-    };
-};*/
 
 const UsersContainer = connect(MapStateToProps,
     {follow, unFollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching,})(UsersAPIContainer);

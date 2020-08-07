@@ -3,7 +3,6 @@ import s from "./Users.module.css";
 import userPhoto from "../../assets/images/logo192.png";
 import {UsersType} from "../../redux/UsersReducer/usersReducer";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
 import {usersAPI} from "../../API/API";
 
 type UsersFuncType = {
@@ -24,9 +23,6 @@ const UsersFunc = (props: UsersFuncType) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
-
-    const onFollowHandler = () => {}
-    const onUnFollowHandler = () => {}
 
     return (
         <div className={s.Users}>
@@ -54,17 +50,17 @@ const UsersFunc = (props: UsersFuncType) => {
                         {u.followed
                             ? <button onClick={() => {
                                 usersAPI.unFollow(u.id).then(data => {
-                                        if (data.resultCode == 0) {
-                                            props.unFollow(u.id)
-                                        }
-                                    })
+                                    if (data.resultCode == 0) {
+                                        props.unFollow(u.id)
+                                    }
+                                })
                             }}>UnFollow</button>
                             : <button onClick={() => {
                                 usersAPI.follow(u.id).then(data => {
-                                        if (data.resultCode == 0) {
-                                            props.follow(u.id)
-                                        }
-                                    })
+                                    if (data.resultCode == 0) {
+                                        props.follow(u.id)
+                                    }
+                                })
                             }}>Follow</button>}
                     </div>
                 </span>
