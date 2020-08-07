@@ -19,6 +19,12 @@ export const usersAPI = {
     },
 }
 
+export const profileAPI = {
+    setProfile (userId: string = '2') {
+        return instance.get(`profile/${userId}`).then(response => response.data)
+    }
+}
+
 
 
 
