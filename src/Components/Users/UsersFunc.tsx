@@ -13,6 +13,8 @@ type UsersFuncType = {
     onPageChange: (pageNumber: number) => void
     follow: (userID: number) => void
     unFollow: (userID: number) => void
+    toggleFollowingProgress: (isFetching: boolean, userID: number) => void
+    followingInProgress: Array<number>
 }
 
 const UsersFunc = (props: UsersFuncType) => {
@@ -23,7 +25,6 @@ const UsersFunc = (props: UsersFuncType) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
-
     return (
         <div className={s.Users}>
             <div>
@@ -48,18 +49,22 @@ const UsersFunc = (props: UsersFuncType) => {
                     </div>
                     <div>
                         {u.followed
-                            ? <button onClick={() => {
+                            ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                props.toggleFollowingProgress(true, u.id)
                                 usersAPI.unFollow(u.id).then(data => {
                                     if (data.resultCode == 0) {
                                         props.unFollow(u.id)
                                     }
+                                    props.toggleFollowingProgress(false, u.id)
                                 })
                             }}>UnFollow</button>
-                            : <button onClick={() => {
+                            : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                props.toggleFollowingProgress(true, u.id)
                                 usersAPI.follow(u.id).then(data => {
                                     if (data.resultCode == 0) {
                                         props.follow(u.id)
                                     }
+                                    props.toggleFollowingProgress(false, u.id)
                                 })
                             }}>Follow</button>}
                     </div>
