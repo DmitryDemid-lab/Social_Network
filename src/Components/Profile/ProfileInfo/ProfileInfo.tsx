@@ -14,8 +14,8 @@ const ProfileInfo = (props: ProfileInfoPropsTypes) => {
     }
     return (
         <div>
-            <div><img src="https://cdn.downtoearth.org.in/library/large/2019-12-04/0.92334300_1575475699_17.jpg"
-                      alt=""/></div>
+            {/*<div><img src="https://cdn.downtoearth.org.in/library/large/2019-12-04/0.92334300_1575475699_17.jpg"
+                      alt=""/></div>*/}
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos?.large}/>
                 <div>ABOUT JOB <br/> Is looking for a job: {props.profile.lookingForAJob ? 'yes' : 'no'} <br/> Description: {props.profile.lookingForAJobDescription}</div><hr/>
