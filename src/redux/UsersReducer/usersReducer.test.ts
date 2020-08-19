@@ -1,4 +1,4 @@
-import usersReducer, {follow, setUsers, unFollow, UsersStateType} from "./usersReducer";
+import usersReducer, {followSuccess, setUsers, unFollowSuccess, UsersStateType} from "./usersReducer";
 
 test('correct user should be followed', () => {
     const initialState: UsersStateType = {
@@ -30,7 +30,7 @@ test('correct user should be followed', () => {
         ]
     };
 
-    const action = follow(1);
+    const action = followSuccess(1);
 
     const endState = usersReducer(initialState, action)
 
@@ -58,7 +58,7 @@ test('correct user should be unFollowed', () => {
         ]
     };
 
-    const action = unFollow(1);
+    const action = unFollowSuccess(1);
 
     const endState = usersReducer(initialState, action)
 

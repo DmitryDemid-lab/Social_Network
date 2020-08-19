@@ -9,14 +9,13 @@ import store from "./redux/reduxStore"
 import DialogsContainer from "./Components/Dialogs/Message/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
-import HeaderContainer from "./Components/Header/Header.container";
 import HeaderConnect from "./Components/Header/Header.container";
 
 function App() {
     let state = store.getState();
     return (
         <div className="app-wrapper">
-            <HeaderConnect />
+            <HeaderConnect/>
             <NavBar friends={state.sideBar.friends}/>
             <div className="app-wrapper-content">
                 <Route path="/profile/:userId?"
