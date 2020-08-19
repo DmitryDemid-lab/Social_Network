@@ -1,32 +1,22 @@
 import React from 'react';
 import Header from "./Header";
-import axios from "axios";
 import {connect} from "react-redux";
-import {serverDataType, setAuthUserData, toggleIsFetching} from "../../redux/AuthReducer/AuthReducer";
+import {setAuth} from "../../redux/AuthReducer/AuthReducer";
 import {AppStateType} from "../../redux/reduxStore";
 
-type HeaderContainerType ={
-    toggleIsFetching: (isFetching: boolean) => void
-    setAuthUserData: (data: serverDataType) => void
+type HeaderContainerType = {
+    setAuth: () => void
     isAuth: boolean
     login: string
 }
 
-class HeaderContainer extends React.Component<HeaderContainerType>{
+class HeaderContainer extends React.Component<HeaderContainerType> {
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-            withCredentials: true
-        })
-            .then((response: any) => {
-                this.props.toggleIsFetching(false)
-                if (response.data.resultCode === 0) {
-                    this.props.setAuthUserData(response.data.data)
-                }
-            })
+        this.props.setAuth()
     }
+
     render() {
-        return  <Header {...this.props} />
+        return <Header {...this.props} />
     }
 }
 
@@ -35,6 +25,6 @@ const mapStateToPropsType = (state: AppStateType) => ({
     login: state.auth.login
 })
 
-const HeaderConnect = connect(mapStateToPropsType, {setAuthUserData, toggleIsFetching})(HeaderContainer)
+const HeaderConnect = connect(mapStateToPropsType, {setAuth})(HeaderContainer)
 
 export default HeaderConnect;
