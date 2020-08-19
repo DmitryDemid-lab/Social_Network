@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 
 const instance = axios.create({
     withCredentials: true,
@@ -10,18 +10,25 @@ const instance = axios.create({
 
 export const usersAPI = {
     getUsers(currentPage: number = 1, pageSize: number = 10) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`,).then(response => response.data)
+        return instance.get(`users?page=${currentPage}&count=${pageSize}`,).then((response: AxiosResponse) => response.data)
     },
     follow(id: number) {
         return instance.post(`follow/${id}`, {},).then(response => response.data)
-    }, unFollow(id: number) {
+    },
+    unFollow(id: number) {
         return instance.delete(`follow/${id}`, {},).then(response => response.data)
     },
 }
 
 export const profileAPI = {
-    setProfile (userId: string = '2') {
-        return instance.get(`profile/${userId}`).then(response => response.data)
+    setProfile (userID: string = '2') {
+        return instance.get(`profile/${userID}`).then(response => response.data)
+    }
+}
+
+export const authApi = {
+    setAuth () {
+        return instance.get(`auth/me`, ).then(response => response.data)
     }
 }
 
