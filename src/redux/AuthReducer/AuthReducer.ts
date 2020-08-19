@@ -1,5 +1,6 @@
+import {authApi} from "../../API/API";
+
 const SET_USER_DATA = 'SET_USER_DATA';
-const UNFOLLOW = 'UNFOLLOW';
 const TOGGLE_IS_FETCHIND = 'TOGGLE_IS_FETCHIND';
 
 export type serverDataType = {
@@ -12,10 +13,6 @@ export type setUserDataACType = {
     type: typeof SET_USER_DATA,
     data: serverDataType
 }
-export type UnFollowACType = {
-    type: typeof UNFOLLOW,
-    userID: number
-}
 
 export type toggleIsFetchingACtype = {
     type: typeof TOGGLE_IS_FETCHIND,
@@ -24,7 +21,6 @@ export type toggleIsFetchingACtype = {
 
 export type UsersActionsType =
     setUserDataACType
-    | UnFollowACType
     | toggleIsFetchingACtype
 
 export type authInitialStateType = {
@@ -52,9 +48,6 @@ const authReducer = (state: authInitialStateType = initialState, action: UsersAc
                 isAuth: true
             };
         }
-        case UNFOLLOW: {
-            return {...state};
-        }
         case TOGGLE_IS_FETCHIND: {
             return {
                 ...state,
@@ -67,10 +60,21 @@ const authReducer = (state: authInitialStateType = initialState, action: UsersAc
 }
 
 export const setAuthUserData = (data: serverDataType): setUserDataACType => ({type: SET_USER_DATA, data})
-export const unFollow = (userID: number): UnFollowACType => ({type: UNFOLLOW, userID})
 export const toggleIsFetching = (isFetching: boolean): toggleIsFetchingACtype => ({
     type: TOGGLE_IS_FETCHIND,
     isFetching
 })
+
+export const setAuth = () => {
+    return (dispatch: any) => {
+        dispatch (toggleIsFetching(true))
+        authApi.setAuth().then(data => {
+            dispatch (toggleIsFetching(false))
+            if (data.resultCode === 0) {
+                dispatch (setAuthUserData(data.data))
+            }
+        })
+    }
+}
 
 export default authReducer;
