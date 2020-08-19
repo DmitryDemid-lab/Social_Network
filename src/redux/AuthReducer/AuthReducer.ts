@@ -65,10 +65,10 @@ export const toggleIsFetching = (isFetching: boolean): toggleIsFetchingACtype =>
     isFetching
 })
 
-export const setAuth = () => {
+export const getAuthUserData = () => {
     return (dispatch: any) => {
         dispatch (toggleIsFetching(true))
-        authApi.setAuth().then(data => {
+        authApi.getAuth().then(data => {
             dispatch (toggleIsFetching(false))
             if (data.resultCode === 0) {
                 dispatch (setAuthUserData(data.data))

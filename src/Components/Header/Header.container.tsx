@@ -1,18 +1,18 @@
 import React from 'react';
 import Header from "./Header";
 import {connect} from "react-redux";
-import {setAuth} from "../../redux/AuthReducer/AuthReducer";
+import {getAuthUserData} from "../../redux/AuthReducer/AuthReducer";
 import {AppStateType} from "../../redux/reduxStore";
 
 type HeaderContainerType = {
-    setAuth: () => void
+    getAuthUserData: () => void
     isAuth: boolean
     login: string
 }
 
 class HeaderContainer extends React.Component<HeaderContainerType> {
     componentDidMount() {
-        this.props.setAuth()
+        this.props.getAuthUserData()
     }
 
     render() {
@@ -25,6 +25,6 @@ const mapStateToPropsType = (state: AppStateType) => ({
     login: state.auth.login
 })
 
-const HeaderConnect = connect(mapStateToPropsType, {setAuth})(HeaderContainer)
+const HeaderConnect = connect(mapStateToPropsType, {getAuthUserData})(HeaderContainer)
 
 export default HeaderConnect;

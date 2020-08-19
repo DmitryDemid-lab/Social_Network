@@ -21,13 +21,13 @@ export const usersAPI = {
 }
 
 export const profileAPI = {
-    setProfile (userID: string = '2') {
+    getProfile (userID: string = '2') {
         return instance.get(`profile/${userID}`).then(response => response.data)
     }
 }
 
 export const authApi = {
-    setAuth () {
+    getAuth () {
         return instance.get(`auth/me`, ).then(response => response.data)
     }
 }

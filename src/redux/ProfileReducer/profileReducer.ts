@@ -99,9 +99,9 @@ export const updateNewPostText = (text: string): UpdateNewPostTextType => ({
 })
 export const setUserProfile = (profile: profileInfoType): setUserProfileType => ({type: SET_USER_PROFILE, profile})
 
-export const setProfile = (userID: string) => {
+export const getProfile = (userID: string) => {
     return (dispatch: any) => {
-        profileAPI.setProfile(userID).then(data => {
+        profileAPI.getProfile(userID).then(data => {
             dispatch (setUserProfile(data))
         })
     }
