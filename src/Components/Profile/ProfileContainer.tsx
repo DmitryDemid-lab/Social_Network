@@ -7,6 +7,7 @@ import {RouteComponentProps, withRouter} from 'react-router';
 
 type mapStateToPropsType = {
     profile: profileInfoType
+    isAuth: boolean
 }
 
 type mapDispatchToPropsType = {
@@ -34,7 +35,8 @@ class ProfileContainer extends React.Component<CommonPropsType> {
 let WithUrlDataContainerComponent = withRouter(ProfileContainer)
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    isAuth: state.auth.isAuth
 })
 
 export default connect(mapStateToProps, {getProfile})(WithUrlDataContainerComponent);
