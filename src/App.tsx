@@ -10,6 +10,7 @@ import DialogsContainer from "./Components/Dialogs/Message/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import HeaderConnect from "./Components/Header/Header.container";
+import Login from "./Components/Login/Login";
 
 function App() {
     let state = store.getState();
@@ -31,6 +32,8 @@ function App() {
                        render={() => <Settings/>}/>
                 <Route path="/users"
                        render={() => <UsersContainer/>}/>
+                <Route path="/login"
+                       render={() => <Login/>}/>
             </div>
         </div>
     )
