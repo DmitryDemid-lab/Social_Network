@@ -28,9 +28,7 @@ function Dialogs(props: DialogsPagePropsType) {
         props.updateNewMessageText(text);
     };
 
-    if (props.isAuth == false) {
-        return <Redirect to={'/login'}/>
-    }
+    if (!props.isAuth) return <Redirect to={'/login'}/>
 
     return (
         <div className={s.dialogs}>

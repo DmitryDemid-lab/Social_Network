@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {profileInfoType, getProfile} from "../../redux/ProfileReducer/profileReducer";
 import {AppStateType} from "../../redux/reduxStore";
 import {RouteComponentProps, withRouter} from 'react-router';
+import {Redirect} from "react-router-dom";
 
 type mapStateToPropsType = {
     profile: profileInfoType
@@ -28,6 +29,8 @@ class ProfileContainer extends React.Component<CommonPropsType> {
     }
 
     render() {
+        if (!this.props.isAuth) return <Redirect to={'/login'}/>
+
         return <Profile {...this.props} />
     }
 }
