@@ -4,6 +4,7 @@ import {profileAPI} from "../../API/API";
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_USER_STATUS = 'SET_USER_STATUS';
 
 
 export type AddPostType = {
@@ -13,12 +14,19 @@ export type UpdateNewPostTextType = {
     type: typeof UPDATE_NEW_POST_TEXT,
     newText: string,
 }
-export type setUserProfileType = {
+export type SetUserProfileType = {
     type: typeof SET_USER_PROFILE,
     profile: any
 }
+export type SetUserStatusType = {
+    type: typeof SET_USER_STATUS,
+    status: string
+}
 
-export type ProfileActionsType = AddPostType | UpdateNewPostTextType | setUserProfileType;
+export type ProfileActionsType = AddPostType
+    | UpdateNewPostTextType
+    | SetUserProfileType
+    | SetUserStatusType
 
 type profileInfoContactsType = {
     github?: string
@@ -50,6 +58,7 @@ export type initialStateType = {
     posts: Array<postsType>
     newPostText: string
     profile: profileInfoType
+    status: string
 }
 
 export let initialState: initialStateType = {
@@ -59,9 +68,10 @@ export let initialState: initialStateType = {
     ],
     newPostText: "",
     profile: {},
+    status: '',
 };
 
-const profileReducer = (state = initialState, action: ProfileActionsType)  => {
+const profileReducer = (state = initialState, action: ProfileActionsType) => {
     switch (action.type) {
         case ADD_POST: {
             let newPost: postsType = {
@@ -87,6 +97,12 @@ const profileReducer = (state = initialState, action: ProfileActionsType)  => {
                 profile: action.profile
             }
         }
+        case SET_USER_STATUS: {
+            return {
+                ...state,
+                status: action.status
+            }
+        }
         default:
             return state;
     }
@@ -97,12 +113,29 @@ export const updateNewPostText = (text: string): UpdateNewPostTextType => ({
     type: UPDATE_NEW_POST_TEXT,
     newText: text
 })
-export const setUserProfile = (profile: profileInfoType): setUserProfileType => ({type: SET_USER_PROFILE, profile})
+export const setUserProfile = (profile: profileInfoType): SetUserProfileType => ({type: SET_USER_PROFILE, profile})
+export const setUserStatus = (status: string): SetUserStatusType => ({type: SET_USER_STATUS, status})
 
 export const getProfile = (userID: string) => {
     return (dispatch: any) => {
         profileAPI.getProfile(userID).then(data => {
-            dispatch (setUserProfile(data))
+            dispatch(setUserProfile(data))
+        })
+    }
+}
+export const getStatus = (userID: string) => {
+    return (dispatch: any) => {
+        profileAPI.getStatus(userID).then(data => {
+            dispatch(setUserStatus(data))
+        })
+    }
+}
+export const updateStatus = (status: string) => {
+    return (dispatch: any) => {
+        profileAPI.updateStatus(status).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(setUserStatus(status))
+            }
         })
     }
 }
