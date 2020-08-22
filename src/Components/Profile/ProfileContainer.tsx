@@ -1,13 +1,14 @@
 import React from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getProfile, getStatus, profileInfoType, updateStatus} from "../../redux/ProfileReducer/profileReducer";
+import {getProfile, getStatus, updateStatus} from "../../redux/ProfileReducer/profileReducer";
 import {AppStateType} from "../../redux/reduxStore";
 import {RouteComponentProps, withRouter} from 'react-router';
 import {compose} from 'redux';
+import {GetProfileResponseType} from "../../API/API";
 
 type mapStateToPropsType = {
-    profile: profileInfoType
+    profile: GetProfileResponseType
     status: string
 }
 

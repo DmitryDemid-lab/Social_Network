@@ -1,17 +1,11 @@
-import {authApi} from "../../API/API";
+import {authApi, DataAuthResponseType} from "../../API/API";
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const TOGGLE_IS_FETCHIND = 'TOGGLE_IS_FETCHIND';
 
-export type serverDataType = {
-    userId: number | null
-    email: string
-    login: string
-}
-
 export type setUserDataACType = {
     type: typeof SET_USER_DATA,
-    data: serverDataType
+    data: DataAuthResponseType
 }
 
 export type toggleIsFetchingACtype = {
@@ -59,7 +53,7 @@ const authReducer = (state: authInitialStateType = initialState, action: UsersAc
     }
 }
 
-export const setAuthUserData = (data: serverDataType): setUserDataACType => ({type: SET_USER_DATA, data})
+export const setAuthUserData = (data: DataAuthResponseType): setUserDataACType => ({type: SET_USER_DATA, data})
 export const toggleIsFetching = (isFetching: boolean): toggleIsFetchingACtype => ({
     type: TOGGLE_IS_FETCHIND,
     isFetching

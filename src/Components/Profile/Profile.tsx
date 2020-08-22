@@ -1,10 +1,11 @@
 import React from 'react';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {profileInfoType} from "../../redux/ProfileReducer/profileReducer";
+
+import {GetProfileResponseType} from "../../API/API";
 
 type ProfilePagePropsType = {
-    profile: profileInfoType
+    profile: GetProfileResponseType
     status: string
     updateStatus: (status: string) => void
 };

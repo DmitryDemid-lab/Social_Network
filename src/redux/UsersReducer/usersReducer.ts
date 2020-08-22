@@ -9,19 +9,12 @@ const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
 
 
-export type UsersLocationType = {
-    city: string
-    country: string
-}
-
 export type UsersType = {
     id: number
     followed: boolean
-    //photoUrl: string
     photos: any
     name: string
     status: string
-    //location: UsersLocationType
 }
 
 export type UsersStateType = {
@@ -59,7 +52,6 @@ export type toggleIsFetchingACtype = {
 }
 export type toggleIsFollowingProgressACType = {
     type: typeof TOGGLE_IS_FOLLOWING_PROGRESS,
-    //followingInProgress: Array<number>
     isFetching: boolean
     userID: number
 }
@@ -82,7 +74,7 @@ let initialState: UsersStateType = {
     followingInProgress: []
 };
 
-const usersReducer = (state = initialState, action: UsersActionsType): UsersStateType => {
+const usersReducer = (state = initialState, action: UsersActionsType) => {
     switch (action.type) {
         case FOLLOW: {
             return {

@@ -1,5 +1,5 @@
 import {postsType, ProfilePageType} from "../store";
-import {profileAPI} from "../../API/API";
+import {GetProfileResponseType, profileAPI} from "../../API/API";
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
@@ -28,50 +28,24 @@ export type ProfileActionsType = AddPostType
     | SetUserProfileType
     | SetUserStatusType
 
-type profileInfoContactsType = {
-    github?: string
-    vk?: string
-    facebook?: string
-    instagram?: string
-    twitter?: string
-    website?: string
-    youtube?: string
-    mainLink?: string
-}
-
-export type profileInfoPhotosType = {
-    small?: string
-    large?: string
-}
-
-export type profileInfoType = {
-    userId?: number
-    aboutMe?: string
-    lookingForAJob?: boolean
-    lookingForAJobDescription?: string
-    fullName?: string
-    contacts?: profileInfoContactsType
-    photos?: profileInfoPhotosType
-}
-
 export type initialStateType = {
     posts: Array<postsType>
     newPostText: string
-    profile: profileInfoType
+    profile: GetProfileResponseType
     status: string
 }
 
-export let initialState: initialStateType = {
+export let initialState = {
     posts: [
         {id: 1, message: "Hi, how are u?", likesCount: 15},
         {id: 2, message: "It's my first post!", likesCount: 20}
-    ],
+    ] as Array<postsType>,
     newPostText: "",
-    profile: {},
+    profile: {} as GetProfileResponseType ,
     status: '',
 };
 
-const profileReducer = (state = initialState, action: ProfileActionsType) => {
+const profileReducer = (state = initialState, action: ProfileActionsType): initialStateType => {
     switch (action.type) {
         case ADD_POST: {
             let newPost: postsType = {
@@ -113,7 +87,7 @@ export const updateNewPostText = (text: string): UpdateNewPostTextType => ({
     type: UPDATE_NEW_POST_TEXT,
     newText: text
 })
-export const setUserProfile = (profile: profileInfoType): SetUserProfileType => ({type: SET_USER_PROFILE, profile})
+export const setUserProfile = (profile: GetProfileResponseType): SetUserProfileType => ({type: SET_USER_PROFILE, profile})
 export const setUserStatus = (status: string): SetUserStatusType => ({type: SET_USER_STATUS, status})
 
 export const getProfile = (userID: string) => {
