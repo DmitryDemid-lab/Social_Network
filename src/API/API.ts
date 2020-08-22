@@ -8,39 +8,89 @@ const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/'
 })
 
+type UserType = {
+    id: number
+    name: string
+    status: string
+    photos: {
+        small: string
+        large: string
+    }
+    followed: boolean
+}
+
+type GetUsersResponseType = {
+    items: Array<UserType>
+    totalCount: number
+    error: string
+}
+
+type CommonResponseType<T = {}> = {
+    resultCode: number
+    messages: Array<string>
+    data: T
+}
+
+export type GetProfileResponseType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
+    }
+    photos: {
+        small: string
+        large: string
+    }
+}
+
+export type DataAuthResponseType = {
+    id: number
+    email: string
+    login: string
+}
+
 export const usersAPI = {
     getUsers(currentPage: number = 1, pageSize: number = 10) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`,).then((response: AxiosResponse) => response.data)
+        return instance.get<GetUsersResponseType>(`users?page=${currentPage}&count=${pageSize}`,).then((response: AxiosResponse) => response.data)
     },
     follow(id: number) {
-        return instance.post(`follow/${id}`, {},).then(response => response.data)
+        return instance.post<CommonResponseType>(`follow/${id}`, {},).then(response => response.data)
     },
     unFollow(id: number) {
-        return instance.delete(`follow/${id}`, {},).then(response => response.data)
+        return instance.delete<CommonResponseType>(`follow/${id}`, {},).then(response => response.data)
     },
 }
 
 export const profileAPI = {
-    getProfile (userID: string = '2') {
-        return instance.get(`profile/${userID}`).then(response => response.data)
+    getProfile(userID: string = '2') {
+        return instance.get<GetProfileResponseType>(`profile/${userID}`).then(response => response.data)
     },
-    getStatus (userID: string = '2') {
-        return instance.get(`profile/status/${userID}`).then(response => response.data)
+    getStatus(userID: string = '2') {
+        return instance.get<string>(`profile/status/${userID}`).then(response => response.data)
     },
-    updateStatus (status: string) {
-        return instance.put(`profile/status/`, {status}).then(response => response.data)
+    updateStatus(status: string) {
+        return instance.put<CommonResponseType>(`profile/status/`, {status}).then(response => response.data)
     }
 }
 
 export const authApi = {
     getAuth () {
-        return instance.get(`auth/me`, ).then(response => response.data)
+        return instance.get<CommonResponseType<DataAuthResponseType>>(`auth/me`, ).then(response => response.data)
     },
     logIn (email: string, password: string, rememberMe: boolean, captcha: boolean) {
-        return instance.post(`/auth/login`, {email, password, rememberMe, captcha}).then(response => response.data)
+        return instance.post<CommonResponseType<{userId: number}>>(`/auth/login`, {email, password, rememberMe, captcha}).then(response => response.data)
     },
     logOut () {
-        return instance.delete(`/auth/login`).then(response => response.data)
+        return instance.delete<CommonResponseType>(`/auth/login`).then(response => response.data)
     }
 }
 
