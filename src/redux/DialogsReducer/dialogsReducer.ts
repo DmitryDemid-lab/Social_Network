@@ -2,19 +2,12 @@ import {DialogsPageType, messagesType} from "../store";
 
 export type AddMessageActionCreatorType = {
     type: typeof ADD_MESSAGE,
-}
-export type updateNewMessageTextActionCreatorType = {
-    type: typeof UPDATE_NEW_MESSAGE_TEXT,
-    newText: string,
+    newMessageBody: string
 }
 
-
-export type DialogActionsType = AddMessageActionCreatorType | updateNewMessageTextActionCreatorType
-
-
+export type DialogActionsType = AddMessageActionCreatorType
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 
 
 let initialState: DialogsPageType = {
@@ -32,39 +25,25 @@ let initialState: DialogsPageType = {
         {id: 4, message: "Hey Yo"},
         {id: 5, message: "Good morning"}
     ],
-    newMessageText: ""
 };
 
 const dialogsReducer = (state = initialState, action: DialogActionsType): DialogsPageType => {
-
     switch (action.type) {
         case ADD_MESSAGE: {
             let newMessage: messagesType = {
                 id: 6,
-                message: state.newMessageText
+                message: action.newMessageBody
             }
             return {
                 ...state,
                 messages: [...state.messages, newMessage],
-                newMessageText: ''
             };
-        }
-        case UPDATE_NEW_MESSAGE_TEXT: {
-            return {
-                ...state,
-                newMessageText: action.newText
-            }
         }
         default:
             return state;
     }
 }
 
-export const addMessageActionCreator = (): AddMessageActionCreatorType => ({type: ADD_MESSAGE})
+export const addMessageActionCreator = (newMessageBody: string): AddMessageActionCreatorType => ({type: ADD_MESSAGE, newMessageBody})
 
-export const updateNewMessageTextActionCreator = (text: string): updateNewMessageTextActionCreatorType =>
-    ({
-        type: UPDATE_NEW_MESSAGE_TEXT,
-        newText: text
-    })
 export default dialogsReducer;

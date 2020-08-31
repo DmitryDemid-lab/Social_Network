@@ -29,7 +29,6 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     dialogs: Array<dialogsType>,
     messages: Array<messagesType>,
-    newMessageText: string,
 };
 export type SideBarType = {
     friends: Array<friendType>
