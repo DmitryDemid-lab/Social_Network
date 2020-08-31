@@ -1,13 +1,12 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {postsType} from "../../../redux/store";
+import {AddPostFormDataType, AddPostFormRedux} from "./Post/AddPostForm";
 
 type myPostsType = {
     posts: Array<postsType>,
-    addPost: () => void,
-    updateNewPostTex: (newText: string) => void,
-    newPostText: string,
+    addPost: (newPostBody: string) => void,
 }
 
 
@@ -16,29 +15,13 @@ function MyPosts(props: myPostsType) {
     let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount} key={p.id}/>)
 
 
-    let onAddPost = () => {
-        props.addPost();
+    let onAddPost = (values: AddPostFormDataType) => {
+        props.addPost(values.newPostBody);
     };
-
-    let onPostChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
-        let text = e.currentTarget.value;
-        props.updateNewPostTex(text);
-    };
-
-
     return (
         <div className={s.PostsBlock}>
             <h3>My posts:</h3>
-            <div>
-                <div>
-                    <textarea onChange={onPostChange}
-                              value={props.newPostText}
-                    />
-                </div>
-                <div>
-                    <button onClick={onAddPost}>Add post</button>
-                </div>
-            </div>
+            <AddPostFormRedux onSubmit={onAddPost}/>
             <div className={s.posts}>
                 {postsElements}
             </div>
