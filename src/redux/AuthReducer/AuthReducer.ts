@@ -1,4 +1,4 @@
-import {authApi, DataAuthResponseType} from "../../API/API";
+import {authAPI, DataAuthResponseType} from "../../API/API";
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const TOGGLE_IS_FETCHIND = 'TOGGLE_IS_FETCHIND';
@@ -39,13 +39,12 @@ const authReducer = (state: authInitialStateType = initialState, action: UsersAc
             return {
                 ...state,
                 ...action.data,
-                isAuth: true
             };
         }
         case TOGGLE_IS_FETCHIND: {
             return {
                 ...state,
-                isFetching: action.isFetching
+                isFetching: action.isFetching,
             }
         }
         default:
@@ -62,12 +61,38 @@ export const toggleIsFetching = (isFetching: boolean): toggleIsFetchingACtype =>
 export const getAuthUserData = () => {
     return (dispatch: any) => {
         dispatch (toggleIsFetching(true))
-        authApi.getAuth().then(data => {
+        authAPI.getAuth().then(data => {
             dispatch (toggleIsFetching(false))
             if (data.resultCode === 0) {
-                dispatch (setAuthUserData(data.data))
+                dispatch (setAuthUserData({...data.data, isAuth: true}))
             }
         })
+    }
+}
+
+export const login = (email: string, password: string, rememberMe: boolean) => {
+    return (dispatch: any) => {
+        dispatch (toggleIsFetching(true))
+        authAPI.logIn(email, password, rememberMe)
+            .then(data => {
+                dispatch (toggleIsFetching(false))
+                if (data.resultCode === 0){
+                    dispatch(getAuthUserData())
+                }
+            })
+    }
+}
+
+export const logout = () => {
+    return (dispatch: any) => {
+        dispatch (toggleIsFetching(true))
+        authAPI.logOut().then(data => {
+            dispatch(toggleIsFetching(true))
+            if (data.resultCode === 0) {
+                dispatch (setAuthUserData({isAuth: false, email: '', id: null, login: ''}))
+            }
+        }
+        )
     }
 }
 
