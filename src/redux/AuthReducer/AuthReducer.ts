@@ -59,16 +59,14 @@ export const toggleIsFetching = (isFetching: boolean): toggleIsFetchingACtype =>
     isFetching
 })
 
-export const getAuthUserData = () => {
-    return (dispatch: any) => {
-        dispatch(toggleIsFetching(true))
-        authAPI.getAuth().then(data => {
-            dispatch(toggleIsFetching(false))
-            if (data.resultCode === 0) {
-                dispatch(setAuthUserData({...data.data, isAuth: true}))
-            }
-        })
-    }
+export const getAuthUserData = () => (dispatch: any) => {
+    dispatch(toggleIsFetching(true))
+    return authAPI.getAuth().then(data => {
+        dispatch(toggleIsFetching(false))
+        if (data.resultCode === 0) {
+            dispatch(setAuthUserData({...data.data, isAuth: true}))
+        }
+    })
 }
 
 export const login = (email: string, password: string, rememberMe: boolean) => {
