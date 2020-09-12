@@ -5,7 +5,7 @@ type PreloaderType = {}
 
 function Preloader(props: PreloaderType) {
     return (
-        <div>
+        <div style={{textAlign: 'center'}}>
             <img src={preLoaderIMG}/>
         </div>
     )
