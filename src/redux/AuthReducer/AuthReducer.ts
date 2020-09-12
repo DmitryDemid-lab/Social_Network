@@ -1,4 +1,5 @@
 import {authAPI, DataAuthResponseType} from "../../API/API";
+import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const TOGGLE_IS_FETCHIND = 'TOGGLE_IS_FETCHIND';
@@ -60,11 +61,11 @@ export const toggleIsFetching = (isFetching: boolean): toggleIsFetchingACtype =>
 
 export const getAuthUserData = () => {
     return (dispatch: any) => {
-        dispatch (toggleIsFetching(true))
+        dispatch(toggleIsFetching(true))
         authAPI.getAuth().then(data => {
-            dispatch (toggleIsFetching(false))
+            dispatch(toggleIsFetching(false))
             if (data.resultCode === 0) {
-                dispatch (setAuthUserData({...data.data, isAuth: true}))
+                dispatch(setAuthUserData({...data.data, isAuth: true}))
             }
         })
     }
@@ -72,26 +73,30 @@ export const getAuthUserData = () => {
 
 export const login = (email: string, password: string, rememberMe: boolean) => {
     return (dispatch: any) => {
-        dispatch (toggleIsFetching(true))
+        dispatch(toggleIsFetching(true))
         authAPI.logIn(email, password, rememberMe)
             .then(data => {
-                dispatch (toggleIsFetching(false))
-                if (data.resultCode === 0){
-                    dispatch(getAuthUserData())
+                    dispatch(toggleIsFetching(false))
+                    if (data.resultCode === 0) {
+                        dispatch(getAuthUserData())
+                    } else {
+                        const message = data.messages.length > 0 ? data.messages[0] : 'Some error'
+                        dispatch(stopSubmit('login', {_error: message}))
+                    }
                 }
-            })
+            )
     }
 }
 
 export const logout = () => {
     return (dispatch: any) => {
-        dispatch (toggleIsFetching(true))
+        dispatch(toggleIsFetching(true))
         authAPI.logOut().then(data => {
-            dispatch(toggleIsFetching(true))
-            if (data.resultCode === 0) {
-                dispatch (setAuthUserData({isAuth: false, email: '', id: null, login: ''}))
+                dispatch(toggleIsFetching(true))
+                if (data.resultCode === 0) {
+                    dispatch(setAuthUserData({isAuth: false, email: '', id: null, login: ''}))
+                }
             }
-        }
         )
     }
 }

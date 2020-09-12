@@ -1,1 +1,11 @@
 .Login {}
+
+.formSummaryError {
+    border: 1px solid red;
+    padding: 5px;
+    color: #a30f0f;
+}
+
+.rememberMe {
+    display: flex;
+}
