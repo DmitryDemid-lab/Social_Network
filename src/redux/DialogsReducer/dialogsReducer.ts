@@ -1,14 +1,6 @@
 import {DialogsPageType, messagesType} from "../store";
 
-export type AddMessageActionCreatorType = {
-    type: typeof ADD_MESSAGE,
-    newMessageBody: string
-}
-
-export type DialogActionsType = AddMessageActionCreatorType
-
 const ADD_MESSAGE = 'ADD-MESSAGE';
-
 
 let initialState: DialogsPageType = {
     dialogs: [
@@ -47,3 +39,10 @@ const dialogsReducer = (state = initialState, action: DialogActionsType): Dialog
 export const addMessageActionCreator = (newMessageBody: string): AddMessageActionCreatorType => ({type: ADD_MESSAGE, newMessageBody})
 
 export default dialogsReducer;
+
+//TYPES
+export type AddMessageActionCreatorType = {
+    type: typeof ADD_MESSAGE,
+    newMessageBody: string
+}
+export type DialogActionsType = AddMessageActionCreatorType

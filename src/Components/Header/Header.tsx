@@ -1,10 +1,10 @@
 import React from 'react';
 import s from './Header.module.css';
-import {NavLink, Redirect} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 type HeaderType = {
     isAuth: boolean
-    login: string
+    login: string | null
     logout: () => void
 }
 

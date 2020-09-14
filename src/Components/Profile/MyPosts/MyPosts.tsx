@@ -1,23 +1,15 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {postsType} from "../../../redux/store";
 import {AddPostFormDataType, AddPostFormRedux} from "./Post/AddPostForm";
-
-type myPostsType = {
-    posts: Array<postsType>,
-    addPost: (newPostBody: string) => void,
-}
-
+import {PostsType} from "../../../redux/ProfileReducer/profileReducer";
 
 function MyPosts(props: myPostsType) {
-
-    let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount} key={p.id}/>)
-
-
-    let onAddPost = (values: AddPostFormDataType) => {
+    const postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount} key={p.id}/>)
+    const onAddPost = (values: AddPostFormDataType) => {
         props.addPost(values.newPostBody);
     };
+
     return (
         <div className={s.PostsBlock}>
             <h3>My posts:</h3>
@@ -28,5 +20,9 @@ function MyPosts(props: myPostsType) {
         </div>
     )
 };
-
 export default MyPosts;
+
+type myPostsType = {
+    posts: Array<PostsType>,
+    addPost: (newPostBody: string) => void,
+}

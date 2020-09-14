@@ -63,9 +63,20 @@ type GetUsersResponseType = {
 }
 
 type CommonResponseType<T = {}> = {
-    resultCode: number
+    resultCode: ResultCodeEnum
     messages: Array<string>
     data: T
+}
+
+export type ContactsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
 }
 
 export type GetProfileResponseType = {
@@ -73,16 +84,7 @@ export type GetProfileResponseType = {
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
-    contacts: {
-        github: string
-        vk: string
-        facebook: string
-        instagram: string
-        twitter: string
-        website: string
-        youtube: string
-        mainLink: string
-    }
+    contacts: ContactsType
     photos: {
         small: string
         large: string
@@ -94,6 +96,12 @@ export type DataAuthResponseType =  {
     email: string
     login: string
     isAuth: boolean
+}
+
+export enum ResultCodeEnum {
+    Success = 0,
+    Error = 1,
+    CaptchaIsRequired = 10
 }
 
 

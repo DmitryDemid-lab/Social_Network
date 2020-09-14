@@ -1,9 +1,9 @@
 import React from "react";
 import s from './FormControls.module.css'
+import {WrappedFieldMetaProps} from "redux-form";
 
-export const Textarea = (field: any) => {
+export const Textarea = (field: FieldType) => {
     const hasError = field.meta.touched && field.meta.error
-
     return <div className={s.formControl + ' ' + (hasError ? s.error : '')}>
         <textarea {...field.input} placeholder={field.placeholder}/>
         <div>
@@ -12,7 +12,7 @@ export const Textarea = (field: any) => {
     </div>
 }
 
-export const Input = (field: any) => {
+export const Input = (field: FieldType) => {
     const hasError = field.meta.touched && field.meta.error
 
     return <div className={s.formControl + ' ' + (hasError ? s.error : '')}>
@@ -21,4 +21,15 @@ export const Input = (field: any) => {
             {hasError && <span>{field.meta.error}</span>}
         </div>
     </div>
+}
+
+type FieldType = {
+    meta: WrappedFieldMetaProps
+    /*{
+        touched: boolean
+        error: string
+    }*/
+    placeholder: string | undefined
+    type: string
+    input: string
 }

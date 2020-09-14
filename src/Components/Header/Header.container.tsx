@@ -10,7 +10,7 @@ type HeaderContainerType = mapStateToPropsType & {
 
 type mapStateToPropsType = {
     isAuth: boolean
-    login: string
+    login: string | null
 }
 
 class HeaderContainer extends React.Component<HeaderContainerType> {

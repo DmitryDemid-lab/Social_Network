@@ -26,7 +26,6 @@ const Login = (props: LoginPropsType) => {
 const maxLength30 = maxLength(30)
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
-    console.log(props.error)
     return <form onSubmit={props.handleSubmit}>
         <div>
             <Field placeholder={'Email'} name={'email'} component={Input}
@@ -60,11 +59,9 @@ type FormDataType = {
     password: string
     rememberMe: boolean
 }
-
 type LoginPropsType = mapStateToPropsType & {
     login: (email: string, password: string, rememberMe: boolean) => void
 }
-
 type mapStateToPropsType = {
     isAuth: boolean
 }

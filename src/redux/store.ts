@@ -1,9 +1,4 @@
-
-import profileReducer from "./ProfileReducer/profileReducer";
-import dialogsReducer from "./DialogsReducer/dialogsReducer";
-import sideBarReducer from "./SideBarReducer/sideBarReducer";
-
-export type postsType = {
+type postsType = {
     id: number,
     message: string,
     likesCount: number
