@@ -1,16 +1,18 @@
-import {ProfilePageType} from "../store";
-import profileReducer, {addPost, updateNewPostText} from "./profileReducer";
+import profileReducer, {addPost, InitialStateType, setUserProfile, setUserStatus} from "./profileReducer";
+import {GetProfileResponseType} from "../../API/API";
+
+const initialState: InitialStateType = {
+    posts: [
+        {id: 1, message: "Hi, how are u?", likesCount: 15},
+        {id: 2, message: "It's my first post!", likesCount: 20}
+    ],
+    profile: {} as GetProfileResponseType,
+    status: 'hey'
+};
 
 test('correct post should be added', () => {
-    const initialState:any = {
-        posts: [
-            {id: 1, message: "Hi, how are u?", likesCount: 15},
-            {id: 2, message: "It's my first post!", likesCount: 20}
-        ],
-        newPostText: ""
-    };
 
-    const action = addPost();
+    const action = addPost('Hello');
 
     const endState = profileReducer(initialState, action)
 
@@ -18,37 +20,28 @@ test('correct post should be added', () => {
     expect(endState.posts[0].id).toBe(3);
 });
 
-test('new post text should be updated', () => {
-    const initialState:any = {
-        posts: [
-            {id: 1, message: "Hi, how are u?", likesCount: 15},
-            {id: 2, message: "It's my first post!", likesCount: 20}
-        ],
-        newPostText: ""
-    };
+test('correct status should be added with correct text', () => {
 
-    const action = updateNewPostText("I'm the best");
+    const endState = profileReducer(initialState, setUserStatus("I'm the best"))
 
-    const endState = profileReducer(initialState, action)
-
-    expect(endState.newPostText).toBe("I'm the best");
+    expect(endState.status).toBe("I'm the best");
 });
 
-test('correct post should be added with correct post text', () => {
-    const initialState:any = {
-        posts: [
-            {id: 1, message: "Hi, how are u?", likesCount: 15},
-            {id: 2, message: "It's my first post!", likesCount: 20}
-        ],
-        newPostText: ""
-    };
+test('correct profile should be setted up', () => {
 
-    const action1 = updateNewPostText("I'm the best");
-    const middleState = profileReducer(initialState, action1)
+    const profile = {
+        userId: 3,
+        lookingForAJob: false,
+        lookingForAJobDescription: 'in search',
+        fullName: 'Dmitry',
+        contacts: {},
+        photos: {
+            small: 'string',
+            large: 'string'
+        },
+    }
 
-    const action2 = addPost();
-    const endState = profileReducer(middleState, action2)
+    const endState = profileReducer(initialState, setUserProfile(profile))
 
-    expect(middleState.newPostText).toBe("I'm the best");
-    expect(endState.posts[0].message).toBe("I'm the best");
+    expect(endState.profile.fullName).toBe("Dmitry");
 });

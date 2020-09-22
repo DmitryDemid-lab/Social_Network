@@ -69,14 +69,14 @@ type CommonResponseType<T = {}> = {
 }
 
 export type ContactsType = {
-    github: string
-    vk: string
-    facebook: string
-    instagram: string
-    twitter: string
-    website: string
-    youtube: string
-    mainLink: string
+    github?: string
+    vk?: string
+    facebook?: string
+    instagram?: string
+    twitter?: string
+    website?: string
+    youtube?: string
+    mainLink?: string
 }
 
 export type GetProfileResponseType = {

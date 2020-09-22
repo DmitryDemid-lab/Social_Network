@@ -28,7 +28,6 @@ export const ProfileStatusHooks = (props: ProfileStatusType) => {
         }
     }, [props.status])
 
-    console.log(props.status)
     return <div>
         {!editMode
             ? <div className={s.ProfileStatus}>
