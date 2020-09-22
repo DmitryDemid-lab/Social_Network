@@ -1,8 +1,8 @@
 import React from 'react';
 import {addPost, PostsType} from "../../../redux/ProfileReducer/profileReducer";
-import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/reduxStore";
+import {MyPosts} from "./MyPosts";
 
 type MyPostsMapDispatchToPropsType = {
     addPost: (newPostBody: string) => void
