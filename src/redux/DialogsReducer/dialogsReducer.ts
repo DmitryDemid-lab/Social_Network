@@ -1,6 +1,6 @@
 import {DialogsPageType, messagesType} from "../store";
 
-const ADD_MESSAGE = 'ADD-MESSAGE';
+const ADD_MESSAGE = 'dialogs/ADD-MESSAGE';
 
 let initialState: DialogsPageType = {
     dialogs: [

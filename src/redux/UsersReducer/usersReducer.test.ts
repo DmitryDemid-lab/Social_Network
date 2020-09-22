@@ -1,4 +1,13 @@
-import usersReducer, {followSuccess, setUsers, unFollowSuccess, UsersStateType, UsersType} from "./usersReducer";
+import usersReducer, {
+    followSuccess,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers,
+    toggleIsFetching,
+    unFollowSuccess,
+    UsersStateType,
+    UsersType
+} from "./usersReducer";
 
 const initialState: UsersStateType = {
     users: [
@@ -47,8 +56,7 @@ test('correct user should be unFollowed', () => {
 
     expect(endState.users[0].followed).toBeFalsy();
 });
-
-test('correct users should be setted', () => {
+test('correct users should be setted up', () => {
     let initialSetUsersState: UsersStateType = {
         users: [],
         pageSize: 5,
@@ -58,21 +66,21 @@ test('correct users should be setted', () => {
         followingInProgress: []
     };
 
-    const users:Array<UsersType>  = [
-        {
-            id: 1,
-            followed: false,
-            photos: 'https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/7_avatar-512.png',
-            name: 'Dmitry',
-            status: 'I am boss'
-        },
-        {
-            id: 2,
-            followed: true,
-            name: "Ivan",
-            status: "I'm driver",
-            photos: 'https://cdn.iconscout.com/icon/free/png-512/avatar-367-456319.png',
-        },
+    const users: Array<UsersType> = [
+            {
+                id: 1,
+                followed: false,
+                photos: 'https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/7_avatar-512.png',
+                name: 'Dmitry',
+                status: 'I am boss'
+            },
+            {
+                id: 2,
+                followed: true,
+                name: "Ivan",
+                status: "I'm driver",
+                photos: 'https://cdn.iconscout.com/icon/free/png-512/avatar-367-456319.png',
+            },
         ]
     ;
 
@@ -82,4 +90,19 @@ test('correct users should be setted', () => {
 
     expect(endState.users.length).toBe(2);
     expect(endState.users[0].name).toBe("Dmitry");
+});
+test('correct page should be setted up', () => {
+    const endState = usersReducer(initialState, setCurrentPage(2))
+
+    expect(endState.currentPage).toBe(2);
+});
+test('correct Total Users Count should be setted up', () => {
+    const endState = usersReducer(initialState, setTotalUsersCount(7))
+
+    expect(endState.totalUsersCount).toBe(7);
+});
+test('correct toggleIsFetching value should be setted up', () => {
+    const endState = usersReducer(initialState, toggleIsFetching(true))
+
+    expect(endState.isFetching).toBeTruthy();
 });

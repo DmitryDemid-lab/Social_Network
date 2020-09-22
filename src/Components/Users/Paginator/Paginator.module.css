@@ -1,0 +1,12 @@
+.paginator {
+
+}
+
+.selectedPage {
+    font-weight: bold;
+}
+
+.pages:hover {
+    cursor: pointer;
+    color: blue;
+}

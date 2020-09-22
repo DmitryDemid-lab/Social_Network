@@ -3,8 +3,8 @@ import {stopSubmit} from "redux-form";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../reduxStore";
 
-const SET_USER_DATA = 'SET_USER_DATA';
-const TOGGLE_IS_FETCHIND = 'TOGGLE_IS_FETCHIND';
+const SET_USER_DATA = 'auth/SET_USER_DATA';
+const TOGGLE_IS_FETCHING = 'auth/TOGGLE_IS_FETCHING';
 
 let initialState: authInitialStateType = {
     id: null,
@@ -14,7 +14,7 @@ let initialState: authInitialStateType = {
     isAuth: false
 };
 
-const authReducer = (state: authInitialStateType = initialState, action: UsersActionsType) => {
+export const authReducer = (state: authInitialStateType = initialState, action: UsersActionsType) => {
     switch (action.type) {
         case SET_USER_DATA: {
             return {
@@ -22,7 +22,7 @@ const authReducer = (state: authInitialStateType = initialState, action: UsersAc
                 ...action.data,
             };
         }
-        case TOGGLE_IS_FETCHIND: {
+        case TOGGLE_IS_FETCHING: {
             return {
                 ...state,
                 isFetching: action.isFetching,
@@ -33,53 +33,46 @@ const authReducer = (state: authInitialStateType = initialState, action: UsersAc
     }
 }
 
+//ACTIONS
 export const setAuthUserData = (data: DataAuthResponseType): setUserDataACType => ({type: SET_USER_DATA, data})
 export const toggleIsFetching = (isFetching: boolean): toggleIsFetchingACType => ({
-    type: TOGGLE_IS_FETCHIND,
+    type: TOGGLE_IS_FETCHING,
     isFetching
 })
 
-export const getAuthUserData = (): ThunkType => (dispatch) => {
+//THUNKS
+export const getAuthUserData = (): ThunkType => async (dispatch) => {
     dispatch(toggleIsFetching(true))
-    return authAPI.getAuth().then(data => {
+    const responseData = await authAPI.getAuth()
+    dispatch(toggleIsFetching(false))
+    if (responseData.resultCode === ResultCodeEnum.Success) {
+        dispatch(setAuthUserData({...responseData.data, isAuth: true}))
+    }
+}
+
+export const login = (email: string, password: string, rememberMe: boolean): ThunkAction<void, AppStateType, any, UsersActionsType & any> =>
+    async (dispatch) => {
+        dispatch(toggleIsFetching(true))
+        const responseData = await authAPI.logIn(email, password, rememberMe)
         dispatch(toggleIsFetching(false))
-        if (data.resultCode === ResultCodeEnum.Success) {
-            dispatch(setAuthUserData({...data.data, isAuth: true}))
+        if (responseData.resultCode === ResultCodeEnum.Success) {
+            dispatch(getAuthUserData())
+        } else {
+            const message = responseData.messages.length > 0 ? responseData.messages[0] : 'Some error'
+            dispatch(stopSubmit('login', {_error: message}))
         }
-    })
-}
-
-export const login = (email: string, password: string, rememberMe: boolean): ThunkAction<void, AppStateType, any, UsersActionsType & any> => {
-    return (dispatch) => {
-        dispatch(toggleIsFetching(true))
-        authAPI.logIn(email, password, rememberMe)
-            .then(data => {
-                    dispatch(toggleIsFetching(false))
-                    if (data.resultCode === ResultCodeEnum.Success) {
-                        dispatch(getAuthUserData())
-                    } else {
-                        const message = data.messages.length > 0 ? data.messages[0] : 'Some error'
-                        dispatch(stopSubmit('login', {_error: message}))
-                    }
-                }
-            )
     }
-}
 
-export const logout = (): ThunkType => {
-    return (dispatch) => {
+export const logout = (): ThunkType =>
+    async (dispatch) => {
         dispatch(toggleIsFetching(true))
-        authAPI.logOut().then(data => {
-                dispatch(toggleIsFetching(true))
-                if (data.resultCode === ResultCodeEnum.Success) {
-                    dispatch(setAuthUserData({isAuth: false, email: '', id: null, login: ''}))
-                }
-            }
-        )
-    }
-}
+        const responseData = await authAPI.logOut()
+        dispatch(toggleIsFetching(true))
+        if (responseData.resultCode === ResultCodeEnum.Success) {
+            dispatch(setAuthUserData({isAuth: false, email: '', id: null, login: ''}))
+        }
 
-export default authReducer;
+    }
 
 //TYPES
 export type setUserDataACType = {
@@ -87,7 +80,7 @@ export type setUserDataACType = {
     data: DataAuthResponseType
 }
 export type toggleIsFetchingACType = {
-    type: typeof TOGGLE_IS_FETCHIND,
+    type: typeof TOGGLE_IS_FETCHING,
     isFetching: boolean
 }
 export type authInitialStateType = {

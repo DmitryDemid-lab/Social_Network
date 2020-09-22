@@ -1,6 +1,6 @@
 import {getAuthUserData} from "../AuthReducer/AuthReducer";
 
-const SET_INITIALIZED_SUCCESS = 'SET_INITIALIZED_SUCCESS';
+const SET_INITIALIZED_SUCCESS = 'app/SET_INITIALIZED_SUCCESS';
 
 let initialState: AuthInitialStateType = {
     initialized: false
@@ -22,12 +22,11 @@ export const appReducer = (state: AuthInitialStateType = initialState, action: A
 export const setInitializedSuccess = () => ({type: SET_INITIALIZED_SUCCESS} as const)
 
 //THUNKS
-export const initializeApp = () => (dispatch: any) => {
+export const initializeApp = () => (dispatch: any) =>
     dispatch(getAuthUserData())
         .then(() => {
             dispatch(setInitializedSuccess())
         })
-}
 
 //TYPES
 export type AppActionsType = ReturnType<typeof setInitializedSuccess>
