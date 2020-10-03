@@ -7,13 +7,14 @@ import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 import store, {AppStateType} from "./redux/reduxStore"
 import UsersContainer from "./Components/Users/UsersContainer";
-import ProfileContainer from "./Components/Profile/ProfileContainer";
 import HeaderConnect from "./Components/Header/Header.container";
 import Login from "./Components/Login/Login";
-import Dialogs from "./Components/Dialogs/DialogsContainer";
 import {connect, Provider} from "react-redux";
 import {initializeApp} from "./redux/appReducer/appReducer";
 import Preloader from "./Components/common/preloader/Preloader";
+import {WithSuspense} from "./hoc/WithSuspense";
+const Dialogs = React.lazy(() => import('./Components/Dialogs/DialogsContainer'));
+const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
 
 
 class App extends React.Component<AppPropsType> {
@@ -27,13 +28,14 @@ class App extends React.Component<AppPropsType> {
         }
         return (
             <div className="app-wrapper">
+
                 <HeaderConnect/>
                 <NavBar friends={store.getState().sideBar.friends}/>
                 <div className="app-wrapper-content">
                     <Route path="/profile/:userId?"
-                           render={() => <ProfileContainer/>}/>
+                           render={WithSuspense(ProfileContainer)}/>
                     <Route path="/dialogs"
-                           render={() => <Dialogs/>}/>
+                           render={WithSuspense(Dialogs)}/>
                     <Route path="/news"
                            render={() => <News/>}/>
                     <Route path="/music"
@@ -49,6 +51,14 @@ class App extends React.Component<AppPropsType> {
         )
     }
 }
+
+/*
+<React.Suspense fallback={<Spinner />}>
+      <div>
+        <OtherComponent />
+      </div>
+    </React.Suspense>
+*/
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     initialized: state.app.initialized
