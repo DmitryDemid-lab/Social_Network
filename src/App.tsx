@@ -67,7 +67,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
 const AppContainer = connect(mapStateToProps, {initializeApp})(App);
 
 export const MainApp = () => {
-    return <BrowserRouter>
+    return <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Provider store={store}>
             <AppContainer/>
         </Provider>
