@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import NavBar from "./Components/NavBar/Navbar";
-import {BrowserRouter, Route} from "react-router-dom"
+import {HashRouter, Route} from "react-router-dom"
 import News from "./Components/News/News";
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
@@ -13,6 +13,7 @@ import {connect, Provider} from "react-redux";
 import {initializeApp} from "./redux/appReducer/appReducer";
 import Preloader from "./Components/common/preloader/Preloader";
 import {WithSuspense} from "./hoc/WithSuspense";
+
 const Dialogs = React.lazy(() => import('./Components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
 
@@ -67,11 +68,11 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
 const AppContainer = connect(mapStateToProps, {initializeApp})(App);
 
 export const MainApp = () => {
-    return <BrowserRouter basename={process.env.PUBLIC_URL}>
+    return <HashRouter basename={process.env.PUBLIC_URL}>
         <Provider store={store}>
             <AppContainer/>
         </Provider>
-    </BrowserRouter>
+    </HashRouter>
 }
 
 //TYPES
