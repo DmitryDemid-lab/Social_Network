@@ -1,10 +1,11 @@
-import {GetProfileResponseType, profileAPI} from "../../API/API";
+import {GetProfileResponseType, profileAPI, ProfilePhotosType} from "../../API/API";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../reduxStore";
 
 const ADD_POST = 'profile/ADD-POST';
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
 const SET_USER_STATUS = 'profile/SET_USER_STATUS';
+const SAVE_PHOTO_SUCCESS = 'profile/SAVE_PHOTO_SUCCESS';
 
 export let initialState: InitialStateType = {
     posts: [
@@ -40,6 +41,13 @@ const profileReducer = (state = initialState, action: ProfileActionsType): Initi
                 status: action.status
             }
         }
+        case SAVE_PHOTO_SUCCESS: {
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photos}
+            }
+        }
+
         default:
             return state;
     }
@@ -52,6 +60,7 @@ export const setUserProfile = (profile: GetProfileResponseType): SetUserProfileT
     profile
 })
 export const setUserStatus = (status: string): SetUserStatusType => ({type: SET_USER_STATUS, status})
+export const savePhotoSuccess = (photos: ProfilePhotosType) => ({type: SAVE_PHOTO_SUCCESS, photos}) as const
 
 //THUNKS
 export const getProfile = (userID: string): ThunkType =>
@@ -73,6 +82,15 @@ export const updateStatus = (status: string): ThunkType =>
             dispatch(setUserStatus(status))
         }
     }
+
+export const saveAvatar = (avatar: File): ThunkType =>
+    async (dispatch) => {
+        const responseData = await profileAPI.saveAvatar(avatar)
+        if (responseData.resultCode === 0) {
+            dispatch(savePhotoSuccess(responseData.data.photos))
+        }
+    }
+
 
 export default profileReducer;
 
@@ -103,5 +121,6 @@ export type ProfileActionsType =
     | AddPostType
     | SetUserProfileType
     | SetUserStatusType
+    | ReturnType<typeof savePhotoSuccess>
 
 type ThunkType = ThunkAction<void, AppStateType, any, ProfileActionsType>

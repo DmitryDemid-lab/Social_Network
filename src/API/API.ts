@@ -29,7 +29,16 @@ export const profileAPI = {
     },
     updateStatus(status: string) {
         return instance.put<CommonResponseType>(`profile/status/`, {status}).then(response => response.data)
-    }
+    },
+    saveAvatar(avatar: File) {
+        const formData = new FormData()
+        formData.append('image', avatar)
+        return instance.put<CommonResponseType<{ photos: ProfilePhotosType }>>(`profile/photo/`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(response => response.data)
+    },
 }
 
 export const authAPI = {
@@ -79,16 +88,18 @@ export type ContactsType = {
     mainLink?: string
 }
 
+export type ProfilePhotosType = {
+    small: string
+    large: string
+}
+
 export type GetProfileResponseType = {
     userId: number
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
     contacts: ContactsType
-    photos: {
-        small: string
-        large: string
-    }
+    photos: ProfilePhotosType
 }
 
 export type DataAuthResponseType =  {

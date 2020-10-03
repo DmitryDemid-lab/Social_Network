@@ -1,6 +1,6 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
-import userPhoto from "../../../assets/images/logo192.png";
+import userAvatar from '../../../assets/images/UserAvatar.png'
 import s from "../Users.module.css";
 
 export const User = (props: UserPropsType) => {
@@ -8,7 +8,7 @@ export const User = (props: UserPropsType) => {
                 <span>
                     <div>
                         <NavLink to={'/profile/' + props.userId}>
-                            <img src={props.userPhotoSmall !== null ? props.userPhotoSmall : userPhoto}
+                            <img src={props.userPhotoSmall !== null ? props.userPhotoSmall : userAvatar}
                                  alt="avatar"
                                  className={s.avatar}/>
                         </NavLink>

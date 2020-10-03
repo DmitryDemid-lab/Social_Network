@@ -1,3 +1,7 @@
 .descriptionBlock {
     padding: 20px;
 }
+
+.mainAvatar {
+    max-width: 256px;
+}
