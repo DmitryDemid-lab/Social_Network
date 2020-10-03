@@ -6,6 +6,10 @@
     font-weight: bold;
 }
 
+.pages {
+    padding: 3px;
+}
+
 .pages:hover {
     cursor: pointer;
     color: blue;

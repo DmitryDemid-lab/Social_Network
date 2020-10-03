@@ -19,8 +19,12 @@ const UsersFunc = (props: UsersFuncType) => {
 
     return (
         <div className={s.Users}>
-            <Paginator currentPage={props.currentPage} totalUsersCount={props.totalUsersCount} pageSize={props.pageSize}
-                       onPageChange={props.onPageChange}/>
+            <Paginator currentPage={props.currentPage}
+                       totalItemsCount={props.totalUsersCount}
+                       pageSize={props.pageSize}
+                       onPageChange={props.onPageChange}
+                       portionSize={10}
+            />
 
             {props.users.map(u => <User key={u.id} userId={u.id} userPhotoSmall={u.photos.small} userName={u.name}
                                         userStatus={u.status} follow={props.follow} unFollow={props.unFollow}
