@@ -1,6 +1,7 @@
 import {GetProfileResponseType, profileAPI, ProfilePhotosType} from "../../API/API";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../reduxStore";
+import {stopSubmit} from "redux-form";
 
 const ADD_POST = 'profile/ADD-POST';
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
@@ -12,7 +13,10 @@ export let initialState: InitialStateType = {
         {id: 1, message: "Hi, how are u?", likesCount: 15},
         {id: 2, message: "It's my first post!", likesCount: 20}
     ] as Array<PostsType>,
-    profile: {} as GetProfileResponseType,
+    profile: {
+        contacts: {},
+        photos: {}
+    } as GetProfileResponseType,
     status: '',
 };
 
@@ -88,6 +92,22 @@ export const saveAvatar = (avatar: File): ThunkType =>
         const responseData = await profileAPI.saveAvatar(avatar)
         if (responseData.resultCode === 0) {
             dispatch(savePhotoSuccess(responseData.data.photos))
+        }
+    }
+
+export const saveProfile = (profile: GetProfileResponseType): ThunkType =>
+    async (dispatch, getState) => {
+        const userId = getState().auth.id?.toString()
+        if (userId) {
+            const responseData = await profileAPI.saveProfile(profile)
+            if (responseData.resultCode === 0) {
+                dispatch(getProfile(userId))
+            } else {
+                const message = responseData.messages.length > 0 ? responseData.messages[0] : 'Some error'
+                // @ts-ignore
+                dispatch(stopSubmit('editProfile', {_error: message}))
+                return Promise.reject(responseData.messages[0])
+            }
         }
     }
 

@@ -1,11 +1,12 @@
 import React from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getProfile, getStatus, saveAvatar, updateStatus} from "../../redux/ProfileReducer/profileReducer";
+import {getProfile, getStatus, saveAvatar, saveProfile, updateStatus} from "../../redux/ProfileReducer/profileReducer";
 import {AppStateType} from "../../redux/reduxStore";
 import {RouteComponentProps, withRouter} from 'react-router';
 import {compose} from 'redux';
 import {GetProfileResponseType} from "../../API/API";
+import {ProfileDataFormType} from "./ProfileInfo/ProfileDataForm";
 
 type mapStateToPropsType = {
     profile: GetProfileResponseType
@@ -19,6 +20,7 @@ type mapDispatchToPropsType = {
     getStatus: (userId: string) => void
     updateStatus: (status: string) => void
     saveAvatar: (avatar: File) => void
+    saveProfile: (formData: ProfileDataFormType) => Promise<any>
 }
 
 type PathParamsType = {
@@ -62,6 +64,6 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
 })
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getProfile, getStatus, updateStatus, saveAvatar}),
+    connect(mapStateToProps, {getProfile, getStatus, updateStatus, saveAvatar, saveProfile}),
     withRouter,
 )(ProfileContainer)

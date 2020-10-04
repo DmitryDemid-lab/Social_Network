@@ -39,6 +39,9 @@ export const profileAPI = {
             }
         }).then(response => response.data)
     },
+    saveProfile(profile: GetProfileResponseType) {
+        return instance.put<CommonResponseType>(`profile`, profile).then(response => response.data)
+    }
 }
 
 export const authAPI = {
@@ -78,14 +81,14 @@ type CommonResponseType<T = {}> = {
 }
 
 export type ContactsType = {
-    github?: string
-    vk?: string
-    facebook?: string
-    instagram?: string
-    twitter?: string
-    website?: string
-    youtube?: string
-    mainLink?: string
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
 }
 
 export type ProfilePhotosType = {
@@ -100,6 +103,7 @@ export type GetProfileResponseType = {
     fullName: string
     contacts: ContactsType
     photos: ProfilePhotosType
+    aboutMe: string
 }
 
 export type DataAuthResponseType =  {

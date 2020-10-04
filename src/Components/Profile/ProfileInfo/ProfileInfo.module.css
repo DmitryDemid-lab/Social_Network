@@ -5,3 +5,13 @@
 .mainAvatar {
     max-width: 256px;
 }
+
+.contact {
+    padding-left: 10px;
+}
+
+.formSummaryError {
+    border: 1px solid red;
+    padding: 5px;
+    color: #a30f0f;
+}
