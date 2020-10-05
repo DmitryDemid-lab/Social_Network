@@ -46,13 +46,19 @@ export const profileAPI = {
 
 export const authAPI = {
     getAuth () {
-        return instance.get<CommonResponseType<DataAuthResponseType>>(`auth/me`, ).then(response => response.data)
+        return instance.get<CommonResponseType<DataAuthResponseType>>(`auth/me`).then(response => response.data)
     },
-    logIn (email: string, password: string, rememberMe: boolean = false) {
-        return instance.post<CommonResponseType<{userId: number}>>(`/auth/login`, {email, password, rememberMe}).then(response => response.data)
+    logIn (email: string, password: string, rememberMe: boolean = false, captcha: string) {
+        return instance.post<CommonResponseType<{userId: number}>>(`auth/login`, {email, password, rememberMe, captcha}).then(response => response.data)
     },
     logOut () {
-        return instance.delete<CommonResponseType>(`/auth/login`).then(response => response.data)
+        return instance.delete<CommonResponseType>(`auth/login`).then(response => response.data)
+    }
+}
+
+export const securityAPI = {
+    getCaptcha() {
+        return instance.get<{url: string}>(`security/get-captcha-url`)
     }
 }
 

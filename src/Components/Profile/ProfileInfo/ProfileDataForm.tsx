@@ -15,10 +15,6 @@ type PropsType = {
     profile: GetProfileResponseType
 }
 
-/*
-const ProfileDataForm: React.FC<InjectedFormProps<ProfileType, PropsType> & PropsType> = ({handleSubmit, profile, error})
-*/
-
 const ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormType> & PropsType> = ({handleSubmit, profile, error}) => {
     return <form onSubmit={handleSubmit}>
         <h3>ABOUT ME:</h3>
