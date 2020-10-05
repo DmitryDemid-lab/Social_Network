@@ -18,3 +18,8 @@ h1, h2, h3, h4, h5, h6, p, span {
     grid-area: c;
     background-color: #c7f2ed;
 }
+
+.error {
+    border: 1px solid red;
+    color: red;
+}
