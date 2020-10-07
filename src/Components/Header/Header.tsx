@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './Header.module.css';
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
+import {Button} from "@material-ui/core";
 
 type HeaderType = {
     isAuth: boolean
@@ -9,15 +10,23 @@ type HeaderType = {
 }
 
 const Header = (props: HeaderType) => {
+    const onLogOutClick = () => {
+        props.logout()
+    }
+
     return (
         <header className={s.header}>
-            <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Approve_icon.svg/1024px-Approve_icon.svg.png"
-                alt="logo"/>
             <div className={s.loginBlock}>
                 {props.isAuth
-                    ? <div>{props.login} - <button onClick={props.logout}>Log out</button></div>
-                    : <NavLink to={'/login'}>Login</NavLink>}
+                    ? <div>You are logged in as: <span style={{textDecorationLine: 'underline'}}>{props.login}</span>
+                        <Button variant="outlined" color={"inherit"} onClick={onLogOutClick} size={"small"} style={{marginLeft: '10px'}}>Log out</Button>
+                    </div>
+                    :<div>
+                        <Button variant={"outlined"} color={"inherit"} size={"small"}><NavLink to={'/login'}>Login</NavLink></Button>
+                        <Redirect to='/login'/>
+                    </div>
+
+                }
             </div>
         </header>
     )

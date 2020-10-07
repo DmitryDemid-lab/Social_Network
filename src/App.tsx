@@ -13,6 +13,7 @@ import {connect, Provider} from "react-redux";
 import {handleError, initializeApp} from "./redux/appReducer/appReducer";
 import Preloader from "./Components/common/preloader/Preloader";
 import {WithSuspense} from "./hoc/WithSuspense";
+import {NavigationBar} from "./Components/NavigationBar/navigationBar";
 
 const Dialogs = React.lazy(() => import('./Components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
@@ -40,8 +41,9 @@ class App extends React.Component<AppPropsType> {
         }
         return (
             <div className="app-wrapper">
+                <NavigationBar/>
                 <HeaderConnect/>
-                <NavBar friends={store.getState().sideBar.friends}/>
+                {/*<NavBar friends={store.getState().sideBar.friends}/>*/}
                 <div className="app-wrapper-content">
                     {/*ВСТАВИТЬ КНОПКУ С ЗАНУЛЕНИЕМ ОШИБКИ*/}
                     {this.props.error && <div className='error'><h4>{this.props.error}</h4></div>}
@@ -51,12 +53,12 @@ class App extends React.Component<AppPropsType> {
                                render={WithSuspense(ProfileContainer)}/>
                         <Route path="/dialogs"
                                render={WithSuspense(Dialogs)}/>
-                        <Route path="/news"
+                       {/* <Route path="/news"
                                render={() => <News/>}/>
                         <Route path="/music"
                                render={() => <Music/>}/>
                         <Route path="/settings"
-                               render={() => <Settings/>}/>
+                               render={() => <Settings/>}/>*/}
                         <Route path="/users"
                                render={() => <UsersContainer/>}/>
                         <Route path="/login"
