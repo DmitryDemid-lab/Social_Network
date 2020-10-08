@@ -13,7 +13,6 @@ const ProfileInfo = (props: ProfileInfoPropsTypes) => {
         return <CircularProgress/>
     }
 
-
     const onSubmitHandler = (formData: ProfileDataFormType) => {
         props.saveProfile(formData).then(() => {
             setEditMode(false)
@@ -30,7 +29,7 @@ const ProfileInfo = (props: ProfileInfoPropsTypes) => {
                                    activateEditMode={() => {
                                        setEditMode(true)
                                    }}/>}
-                <div className={s.infoContainer}><ProfileStatusHooks status={props.status} updateStatus={props.updateStatus}/></div>
+                <div className={s.infoContainer}><ProfileStatusHooks status={props.status} updateStatus={props.updateStatus} isOwner={props.isOwner}/></div>
             </div>
         </div>
     )

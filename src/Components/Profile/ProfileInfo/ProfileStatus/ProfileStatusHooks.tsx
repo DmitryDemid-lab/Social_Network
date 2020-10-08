@@ -4,6 +4,7 @@ import s from './ProfileStatus.module.css';
 type ProfileStatusType = {
     status: string
     updateStatus: (status: string) => void
+    isOwner: boolean
 }
 
 export const ProfileStatusHooks = (props: ProfileStatusType) => {
@@ -12,7 +13,9 @@ export const ProfileStatusHooks = (props: ProfileStatusType) => {
     const [status, setStatus] = useState(props.status)
 
     const activateEditMode = () => {
-        setEditMode(true)
+        if (props.isOwner) {
+            setEditMode(true)
+        }
     }
     const deactivateEditMode = () => {
         setEditMode(false)
@@ -31,7 +34,7 @@ export const ProfileStatusHooks = (props: ProfileStatusType) => {
     return <div className={s.ProfileStatus}>
         {!editMode
             ? <div>
-               <h4>My Status: </h4> <span onDoubleClick={activateEditMode}>{props.status || "-------"}</span>
+               <h4>My Status: </h4> <span onDoubleClick={activateEditMode} title={'Double click to change'}>{props.status || "-------"}</span>
             </div>
             : <div>
                 <input
