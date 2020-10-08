@@ -9,7 +9,7 @@ import {connect, Provider} from "react-redux";
 import {handleError, initializeApp} from "./redux/appReducer/appReducer";
 import {WithSuspense} from "./hoc/WithSuspense";
 import {NavigationBar} from "./Components/NavigationBar/navigationBar";
-import {CircularProgress} from "@material-ui/core";
+import {CircularProgress, LinearProgress} from "@material-ui/core";
 
 const Dialogs = React.lazy(() => import('./Components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
@@ -33,17 +33,17 @@ class App extends React.Component<AppPropsType> {
 
     render() {
         if (!this.props.initialized) {
-
             return <div
                 style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
-                <CircularProgress/>
+                <CircularProgress color={"secondary"}/>
             </div>
         }
         return (
             <div className="app-wrapper">
                 <NavigationBar/>
                 <HeaderConnect/>
-                {/*<NavBar friends={store.getState().sideBar.friends}/>*/}
+                {this.props.isFetching ? <div className='preLoader'><LinearProgress color={"secondary"}/></div> : null}
+                {console.log('IS FETCHING: ', this.props.isFetching)}
                 <div className="Container">
                     {/*ВСТАВИТЬ КНОПКУ С ЗАНУЛЕНИЕМ ОШИБКИ*/}
                     {this.props.error && <div className='error'><h4>{this.props.error}</h4></div>}
@@ -53,12 +53,6 @@ class App extends React.Component<AppPropsType> {
                                render={WithSuspense(ProfileContainer)}/>
                         <Route path="/dialogs"
                                render={WithSuspense(Dialogs)}/>
-                       {/* <Route path="/news"
-                               render={() => <News/>}/>
-                        <Route path="/music"
-                               render={() => <Music/>}/>
-                        <Route path="/settings"
-                               render={() => <Settings/>}/>*/}
                         <Route path="/users"
                                render={() => <UsersContainer/>}/>
                         <Route path="/login"
@@ -75,6 +69,7 @@ class App extends React.Component<AppPropsType> {
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     initialized: state.app.initialized,
     error: state.app.error,
+    isFetching: state.app.isFetching,
 })
 
 const AppContainer = connect(mapStateToProps, {initializeApp, handleError})(App);
@@ -91,6 +86,7 @@ export const MainApp = () => {
 type MapStateToPropsType = {
     initialized: boolean
     error: string | null
+    isFetching: boolean
 }
 type AppPropsType = MapStateToPropsType & {
     initializeApp: () => void

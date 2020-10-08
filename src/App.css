@@ -58,3 +58,9 @@ span {
     border: 1px solid red;
     color: red;
 }
+
+.preLoader {
+    width: 100vw;
+    position: absolute;
+    top: 64px;
+}

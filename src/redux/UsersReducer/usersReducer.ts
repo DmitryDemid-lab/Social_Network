@@ -1,6 +1,7 @@
 import {usersAPI} from "../../API/API";
 import {AppStateType} from "../reduxStore";
 import {ThunkAction} from "redux-thunk";
+import {toggleIsFetching} from "../appReducer/appReducer";
 
 const FOLLOW = 'users/FOLLOW';
 const UNFOLLOW = 'users/UNFOLLOW';
@@ -8,16 +9,14 @@ const SET_USERS = 'users/SET_USERS';
 const SET_FRIENDS = 'users/SET_FRIENDS';
 const SET_CURRENT_PAGE = 'users/SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT = 'users/SET_TOTAL_USERS_COUNT';
-const TOGGLE_IS_FETCHING = 'users/TOGGLE_IS_FETCHING';
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'users/TOGGLE_IS_FOLLOWING_PROGRESS';
 
 
 let initialState: UsersStateType = {
     users: [],
-    pageSize: 5,
+    pageSize: 6,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false,
     followingInProgress: [],
     friends: [],
 };
@@ -52,7 +51,7 @@ const usersReducer = (state = initialState, action: UsersActionsType) => {
                 users: [...action.users]
             }
         }
-        case "users/SET_FRIENDS":
+        case SET_FRIENDS:
             return {
                 ...state,
                 friends: action.friends
@@ -67,12 +66,6 @@ const usersReducer = (state = initialState, action: UsersActionsType) => {
             return {
                 ...state,
                 totalUsersCount: action.totalUsersCount
-            }
-        }
-        case TOGGLE_IS_FETCHING: {
-            return {
-                ...state,
-                isFetching: action.isFetching
             }
         }
         case TOGGLE_IS_FOLLOWING_PROGRESS: {
@@ -96,10 +89,6 @@ export const setFriends = (friends: Array<UsersType>) => ({type: SET_FRIENDS, fr
 export const setTotalUsersCount = (totalUsersCount: number): setTotalUsersCountACtype => ({
     type: SET_TOTAL_USERS_COUNT,
     totalUsersCount
-})
-export const toggleIsFetching = (isFetching: boolean): toggleIsFetchingACtype => ({
-    type: TOGGLE_IS_FETCHING,
-    isFetching
 })
 export const toggleFollowingProgress = (isFetching: boolean, userID: number): toggleIsFollowingProgressACType => ({
     type: TOGGLE_IS_FOLLOWING_PROGRESS,
@@ -165,7 +154,6 @@ export type UsersStateType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
-    isFetching: boolean
     followingInProgress: Array<number>
     friends: Array<UsersType>
 }
@@ -189,10 +177,6 @@ export type setTotalUsersCountACtype = {
     type: typeof SET_TOTAL_USERS_COUNT,
     totalUsersCount: number
 }
-export type toggleIsFetchingACtype = {
-    type: typeof TOGGLE_IS_FETCHING,
-    isFetching: boolean
-}
 export type toggleIsFollowingProgressACType = {
     type: typeof TOGGLE_IS_FOLLOWING_PROGRESS,
     isFetching: boolean
@@ -204,8 +188,7 @@ export type UsersActionsType =
     | SetUsersACType
     | SetCurrentPageACType
     | setTotalUsersCountACtype
-    | toggleIsFetchingACtype
     | toggleIsFollowingProgressACType
     | ReturnType<typeof setFriends>
 
-type ThunkType = ThunkAction<void, AppStateType, any, UsersActionsType>
+type ThunkType = ThunkAction<void, AppStateType, any, UsersActionsType & any>

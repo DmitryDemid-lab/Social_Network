@@ -2,6 +2,7 @@ import {authAPI, DataAuthResponseType, ResultCodeEnum, securityAPI} from "../../
 import {stopSubmit} from "redux-form";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../reduxStore";
+import {toggleIsFetching} from "../appReducer/appReducer";
 
 const SET_USER_DATA = 'auth/SET_USER_DATA';
 const TOGGLE_IS_FETCHING = 'auth/TOGGLE_IS_FETCHING';
@@ -11,7 +12,6 @@ let initialState: authInitialStateType = {
     id: null,
     email: null,
     login: null,
-    isFetching: false,
     isAuth: false,
     captchaUrl: null,
 };
@@ -23,12 +23,6 @@ export const authReducer = (state: authInitialStateType = initialState, action: 
                 ...state,
                 ...action.data,
             };
-        }
-        case TOGGLE_IS_FETCHING: {
-            return {
-                ...state,
-                isFetching: action.isFetching,
-            }
         }
         case "auth/SET_CAPTCHA_URL":
             return {
@@ -42,10 +36,6 @@ export const authReducer = (state: authInitialStateType = initialState, action: 
 
 //ACTIONS
 export const setAuthUserData = (data: DataAuthResponseType): setUserDataACType => ({type: SET_USER_DATA, data})
-export const toggleIsFetching = (isFetching: boolean): toggleIsFetchingACType => ({
-    type: TOGGLE_IS_FETCHING,
-    isFetching
-})
 export const setCaptchaUrl = (captchaUrl: string) => ({type: SET_CAPTCHA_URL, captchaUrl}) as const
 
 //THUNKS
@@ -107,7 +97,6 @@ export type authInitialStateType = {
     id: number | null
     email: string | null
     login: string | null
-    isFetching?: boolean
     isAuth: boolean
     captchaUrl: string | null
 }
@@ -116,4 +105,4 @@ export type UsersActionsType =
     | toggleIsFetchingACType
     | ReturnType<typeof setCaptchaUrl>
 
-type ThunkType = ThunkAction<void, AppStateType, any, UsersActionsType>
+type ThunkType = ThunkAction<void, AppStateType, any, UsersActionsType & any>

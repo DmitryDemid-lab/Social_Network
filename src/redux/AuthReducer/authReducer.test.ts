@@ -5,8 +5,8 @@ const initialState: authInitialStateType = {
     id: null,
     email: null,
     login: null,
-    isFetching: false,
-    isAuth: false
+    isAuth: false,
+    captchaUrl: null
 };
 
 test('correct user data should be setted up', () => {

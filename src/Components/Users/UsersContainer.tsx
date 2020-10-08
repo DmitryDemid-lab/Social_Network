@@ -1,23 +1,16 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/reduxStore";
-import {
-    follow,
-    getUsers,
-    setCurrentPage,
-    unFollow,
-    UsersStateType,
-    UsersType
-} from "../../redux/UsersReducer/usersReducer";
+import {follow, getUsers, setCurrentPage, unFollow, UsersType} from "../../redux/UsersReducer/usersReducer";
 import UsersFunc from "./UsersFunc";
-import Preloader from "../common/preloader/Preloader";
 import {
-    getCurrentPage, getFollowingInProgress,
-    getIsFetching,
+    getCurrentPage,
+    getFollowingInProgress,
     getPageSize,
     getTotalUsersCount,
     getUsersSelector
 } from "../../redux/UsersReducer/usersSelectors";
+import s from "./Users.module.css";
 
 type UsersMapDispatchToPropsType = {
     follow: (userID: number) => void
@@ -32,7 +25,6 @@ type UsersAPIPropsType = UsersMapDispatchToPropsType &
         pageSize: number
         totalUsersCount: number
         currentPage: number
-        isFetching: boolean
         followingInProgress: Array<number>
     }
 
@@ -46,10 +38,9 @@ class UsersAPIContainer extends React.Component<UsersAPIPropsType> {
     }
 
     render() {
-        return <>
-            {this.props.isFetching ? <Preloader/> : null}
+        return <div className={s.UsersAPIContainer}>
             <UsersFunc {...this.props} onPageChange={this.onPageChange}/>
-        </>
+        </div>
     }
 }
 
@@ -68,8 +59,7 @@ const MapStateToProps = (state: AppStateType) => {
         users: getUsersSelector(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
-        currentPage:getCurrentPage(state),
-        isFetching: getIsFetching(state),
+        currentPage: getCurrentPage(state),
         followingInProgress: getFollowingInProgress(state),
     };
 };

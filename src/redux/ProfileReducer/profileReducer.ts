@@ -2,6 +2,7 @@ import {GetProfileResponseType, profileAPI, ProfilePhotosType} from "../../API/A
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../reduxStore";
 import {stopSubmit} from "redux-form";
+import {toggleIsFetching} from "../appReducer/appReducer";
 
 const ADD_POST = 'profile/ADD-POST';
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
@@ -69,7 +70,9 @@ export const savePhotoSuccess = (photos: ProfilePhotosType) => ({type: SAVE_PHOT
 //THUNKS
 export const getProfile = (userID: string): ThunkType =>
     async (dispatch) => {
+        dispatch(toggleIsFetching(true))
         const responseData = await profileAPI.getProfile(userID)
+        dispatch(toggleIsFetching(false))
         dispatch(setUserProfile(responseData))
     }
 
@@ -81,22 +84,27 @@ export const getStatus = (userID: string): ThunkType =>
 
 export const updateStatus = (status: string): ThunkType =>
     async (dispatch) => {
+        dispatch(toggleIsFetching(true))
         const responseData = await profileAPI.updateStatus(status)
         if (responseData.resultCode === 0) {
             dispatch(setUserStatus(status))
         }
+        dispatch(toggleIsFetching(false))
     }
 
 export const saveAvatar = (avatar: File): ThunkType =>
     async (dispatch) => {
+        dispatch(toggleIsFetching(true))
         const responseData = await profileAPI.saveAvatar(avatar)
         if (responseData.resultCode === 0) {
             dispatch(savePhotoSuccess(responseData.data.photos))
         }
+        dispatch(toggleIsFetching(false))
     }
 
 export const saveProfile = (profile: GetProfileResponseType): ThunkType =>
     async (dispatch, getState) => {
+        dispatch(toggleIsFetching(true))
         const userId = getState().auth.id?.toString()
         if (userId) {
             const responseData = await profileAPI.saveProfile(profile)
@@ -108,6 +116,7 @@ export const saveProfile = (profile: GetProfileResponseType): ThunkType =>
                 dispatch(stopSubmit('editProfile', {_error: message}))
                 return Promise.reject(responseData.messages[0])
             }
+            dispatch(toggleIsFetching(false))
         }
     }
 
@@ -143,4 +152,4 @@ export type ProfileActionsType =
     | SetUserStatusType
     | ReturnType<typeof savePhotoSuccess>
 
-type ThunkType = ThunkAction<void, AppStateType, any, ProfileActionsType>
+type ThunkType = ThunkAction<void, AppStateType, any, ProfileActionsType & any>

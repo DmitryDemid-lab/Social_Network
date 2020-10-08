@@ -4,7 +4,7 @@ import userAvatar from '../../../assets/images/UserAvatar.png'
 import s from "../Users.module.css";
 
 export const User = (props: UserPropsType) => {
-    return <div key={props.userId}>
+    return <div className={s.user}>
                 <span>
                     <div>
                         <NavLink to={'/profile/' + props.userId}>
