@@ -72,7 +72,7 @@ const ProfileData = (props: ProfileDataType) => {
         </div>
         <hr/>
         <div className={s.infoContainer}>
-            <div>
+            <div className={s.jobInfo}>
                 <div><span><b>Is looking for a job:</b> {props.profile.lookingForAJob ? 'yes' : 'no'}</span></div>
                 <div><span><b>My professional skills:</b> {props.profile.lookingForAJobDescription}</span></div>
             </div>
