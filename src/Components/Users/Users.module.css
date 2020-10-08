@@ -1,7 +1,32 @@
 .Users {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 
 }
 
+.paginator {
+}
+
+.usersBlock {
+    box-shadow: 0px 0px 20px -6px rgba(0,0,0,1);
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 26px 16px 10px;
+    width: 70%;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.user {
+    width: 205px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.08);
+}
 .avatar {
     width: 200px;
     height: 200px;

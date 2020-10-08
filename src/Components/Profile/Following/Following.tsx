@@ -12,7 +12,6 @@ export const Following = (props: FollowingPropsType) => {
 
     const dispatch = useDispatch()
     const friends = useSelector<AppStateType, Array<UsersType>>(state => state.usersPage.friends)
-    console.log('FRIENDS: ', friends)
 
     return <div className={s.Following}>
         <h3>My Friends</h3>
