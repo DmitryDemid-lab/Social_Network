@@ -63,7 +63,7 @@ class UsersAPIContainer extends React.Component<UsersAPIPropsType> {
         followingInProgress: state.usersPage.followingInProgress,
     };
 };*/
-const MapStateToProps = (state: AppStateType): UsersStateType => {
+const MapStateToProps = (state: AppStateType) => {
     return {
         users: getUsersSelector(state),
         pageSize: getPageSize(state),

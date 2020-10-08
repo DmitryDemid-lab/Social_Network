@@ -1,23 +1,18 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {useState} from 'react';
 import s from './ProfileInfo.module.css';
-import Preloader from "../../common/preloader/Preloader";
 import {ContactsType, GetProfileResponseType} from "../../../API/API";
 import {ProfileStatusHooks} from "./ProfileStatus/ProfileStatusHooks";
-import userAvatar from '../../../assets/images/UserAvatar.png'
 import {ProfileDataFormRedux, ProfileDataFormType} from "./ProfileDataForm";
+import {Button, CircularProgress} from "@material-ui/core";
+import EditIcon from '@material-ui/icons/Edit';
 
 const ProfileInfo = (props: ProfileInfoPropsTypes) => {
     const [editMode, setEditMode] = useState(false)
 
     if (!props.profile) {
-        return <Preloader/>
+        return <CircularProgress/>
     }
 
-    const onMainAvatarSelected = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.currentTarget.files?.length) {
-            props.saveAvatar(e.currentTarget.files[0])
-        }
-    }
 
     const onSubmitHandler = (formData: ProfileDataFormType) => {
         props.saveProfile(formData).then(() => {
@@ -28,16 +23,14 @@ const ProfileInfo = (props: ProfileInfoPropsTypes) => {
     return (
         <div>
             <div className={s.descriptionBlock}>
-                <img src={props.profile.photos.large || userAvatar} className={s.mainAvatar}/>
-                {props.isOwner && <input type={"file"} onChange={onMainAvatarSelected}/>}
-
                 {editMode
-                    ? <ProfileDataFormRedux onSubmit={onSubmitHandler} initialValues={props.profile} profile={props.profile}/>
+                    ? <ProfileDataFormRedux onSubmit={onSubmitHandler} initialValues={props.profile}
+                                            profile={props.profile}/>
                     : <ProfileData profile={props.profile} isOwner={props.isOwner}
                                    activateEditMode={() => {
                                        setEditMode(true)
                                    }}/>}
-                <ProfileStatusHooks status={props.status} updateStatus={props.updateStatus}/>
+                <div className={s.infoContainer}><ProfileStatusHooks status={props.status} updateStatus={props.updateStatus}/></div>
             </div>
         </div>
     )
@@ -52,24 +45,38 @@ type ProfileDataType = {
 }
 
 const ProfileData = (props: ProfileDataType) => {
-    return <div>
-        <div>
-            {props.isOwner && <button onClick={props.activateEditMode}>edit</button>}
+    return <div className={s.profileData}>
+        <div className={s.editButton}>
+            {props.isOwner && <Button onClick={props.activateEditMode} size={"small"}><EditIcon/></Button>}
         </div>
+
+        <div className={s.myName}>
+            <h3>Hello, my name is <span>{props.profile.fullName}</span></h3>
+        </div>
+
         <div>
-            <h3>ABOUT ME:</h3>
-            <div><b>Full name:</b> {props.profile.fullName} </div>
-            <div><b>About me:</b> {props.profile.aboutMe}</div>
-            <h4>Contacts:</h4>
+            <div className={s.infoContainer}>
+                <div className={s.aboutMe}>
+                    <h4>About me:</h4> <span>{props.profile.aboutMe}</span>
+                </div>
+            </div>
+            <hr/>
             <div>
-                {Object.keys(props.profile.contacts).map(key => <Contact key={key} contactTitle={key}
-                                                                         contactValue={props.profile.contacts[key as keyof ContactsType]}/>)}
+                <div className={s.infoContainer}>
+                    <h4>My Contacts:</h4>
+                    <div>
+                        {Object.keys(props.profile.contacts).map(key => <Contact key={key} contactTitle={key}
+                                                                                 contactValue={props.profile.contacts[key as keyof ContactsType]}/>)}
+                    </div>
+                </div>
             </div>
         </div>
         <hr/>
-        <div>
-            <div><b>Is looking for a job:</b> {props.profile.lookingForAJob ? 'yes' : 'no'} </div>
-            <div><b>My professional skills:</b> {props.profile.lookingForAJobDescription}</div>
+        <div className={s.infoContainer}>
+            <div>
+                <div><span><b>Is looking for a job:</b> {props.profile.lookingForAJob ? 'yes' : 'no'}</span></div>
+                <div><span><b>My professional skills:</b> {props.profile.lookingForAJobDescription}</span></div>
+            </div>
         </div>
         <hr/>
     </div>
@@ -78,7 +85,7 @@ const ProfileData = (props: ProfileDataType) => {
 
 const Contact = (props: ContactType) => {
     return <div className={s.contact}>
-        <b>{props.contactTitle}: {props.contactValue}</b>
+        <span><b>{props.contactTitle}</b>: {props.contactValue}</span>
     </div>
 }
 
@@ -92,6 +99,5 @@ type ProfileInfoPropsTypes = {
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
-    saveAvatar: (avatar: File) => void
     saveProfile: (formData: ProfileDataFormType) => Promise<any>
 }

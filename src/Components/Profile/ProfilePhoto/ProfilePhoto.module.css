@@ -1,0 +1,13 @@
+.ProfilePhoto {
+    box-shadow: 0px 0px 20px -6px rgba(0,0,0,1);
+    border-radius: 8px;
+    background-color: #fff;
+    padding-bottom: 26px;
+}
+
+.mainAvatar {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    width: 100%;
+    margin-bottom: 20px;
+}

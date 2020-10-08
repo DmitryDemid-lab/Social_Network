@@ -1,3 +1,11 @@
 .ProfileStatus {
 
 }
+
+.ProfileStatus h4 {
+    display: inline-block;
+}
+
+.ProfileStatus span {
+    font-style: italic;
+}

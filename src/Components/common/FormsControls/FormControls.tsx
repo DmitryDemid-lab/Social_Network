@@ -1,11 +1,12 @@
 import React from "react";
 import s from './FormControls.module.css'
 import {WrappedFieldMetaProps} from "redux-form";
+import {TextField} from "@material-ui/core";
 
 export const Textarea = (field: FieldType) => {
     const hasError = field.meta.touched && field.meta.error
     return <div className={s.formControl + ' ' + (hasError ? s.error : '')}>
-        <textarea {...field.input} placeholder={field.placeholder}/>
+        <TextField {...field.input} placeholder={field.placeholder} color={"secondary"}/>
         <div>
             {hasError && <span>{field.meta.error}</span>}
         </div>

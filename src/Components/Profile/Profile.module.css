@@ -1,1 +1,21 @@
+.profile {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.column1 {
+    width: 35%;
+}
+
+.profilePhoto {
+    margin-bottom: 60px;
+}
+
+.friends {
+}
+
+.column2 {
+    width: 55%;
+}
 

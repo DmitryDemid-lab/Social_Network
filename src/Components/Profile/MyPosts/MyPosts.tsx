@@ -5,7 +5,7 @@ import {AddPostFormDataType, AddPostFormRedux} from "./Post/AddPostForm";
 import {PostsType} from "../../../redux/ProfileReducer/profileReducer";
 
 export const MyPosts = React.memo((props: myPostsType) => {
-    const postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount} key={p.id}/>)
+    const postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount} key={p.id} photo={props.photo}/>)
 
     const onAddPost = useCallback((values: AddPostFormDataType) => {
         props.addPost(values.newPostBody);
@@ -14,10 +14,12 @@ export const MyPosts = React.memo((props: myPostsType) => {
 
     return (
         <div className={s.PostsBlock}>
-            <h3>My posts:</h3>
-            <AddPostFormRedux onSubmit={onAddPost}/>
-            <div className={s.posts}>
-                {postsElements}
+            <div className={s.postContainer}>
+                <h3>My posts:</h3>
+                <AddPostFormRedux onSubmit={onAddPost}/>
+                <div className={s.posts}>
+                    {postsElements}
+                </div>
             </div>
         </div>
     )
@@ -26,4 +28,5 @@ export const MyPosts = React.memo((props: myPostsType) => {
 type myPostsType = {
     posts: Array<PostsType>,
     addPost: (newPostBody: string) => void,
+    photo: string
 }

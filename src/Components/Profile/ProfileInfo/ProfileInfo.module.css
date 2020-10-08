@@ -1,17 +1,53 @@
 .descriptionBlock {
-    padding: 20px;
+    box-shadow: 0px 0px 20px -6px rgba(0,0,0,1);
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 26px 16px;
+    margin-bottom: 60px;
 }
 
-.mainAvatar {
-    max-width: 256px;
+.infoContainer {
+    width: 60%;
+    margin: 0 auto;
+    text-align: start;
 }
 
 .contact {
-    padding-left: 10px;
 }
 
 .formSummaryError {
     border: 1px solid red;
     padding: 5px;
     color: #a30f0f;
+}
+
+.profileData {
+    position: relative;
+}
+
+.myName {
+    margin-bottom: 30px;
+}
+
+.myName span {
+    font-size: 1.5rem;
+    text-decoration: underline;
+}
+
+.editButton {
+    position: absolute;
+    right: 0;
+}
+
+.aboutMe h4{
+    display: inline;
+}
+
+
+.editForm {
+    position: relative;
+}
+.saveButton {
+    position: absolute;
+    right: 0;
 }

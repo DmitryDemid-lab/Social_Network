@@ -1,0 +1,15 @@
+.Friend {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70px;
+    margin: 5px;
+}
+
+.Friend img {
+    max-width: 70px;
+}
+
+.Friend span {
+    font-size: 11px;
+}

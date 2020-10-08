@@ -1,7 +1,8 @@
 import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxLength, requiredField} from "../../../common/validators/Validators";
+import {maxLength} from "../../../common/validators/Validators";
 import {Textarea} from "../../../common/FormsControls/FormControls";
+import {Button} from "@material-ui/core";
 
 export type AddPostFormDataType = {
     newPostBody: string
@@ -16,10 +17,10 @@ const AddPostForm: React.FC<InjectedFormProps<AddPostFormDataType>> = (props) =>
                 component={Textarea}
                 name={'newPostBody'}
                 placeholder={'Enter post text'}
-                validate={[requiredField, maxLength10]}/>
+                validate={[maxLength10]}/>
         </div>
-        <div>
-            <button>Add post</button>
+        <div style={{marginTop: '10px'}}>
+            <Button type={"submit"} variant={"outlined"} size={"small"}>Add post</Button>
         </div>
     </form>
 }

@@ -1,7 +1,21 @@
 .item {
     color: #000;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
-.item img {
+.postPhoto {
     width: 50px;
+    margin-right: 5px;
+}
+
+.postData {
+    display: flex;
+    flex-direction: column;
+}
+
+.postLikes {
+    display: flex;
+    align-items: center;
 }

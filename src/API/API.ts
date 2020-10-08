@@ -12,6 +12,9 @@ export const usersAPI = {
     getUsers(currentPage: number = 1, pageSize: number = 10) {
         return instance.get<GetUsersResponseType>(`users?page=${currentPage}&count=${pageSize}`,).then((response: AxiosResponse) => response.data)
     },
+    getFriends(friend: boolean = true) {
+        return instance.get<GetUsersResponseType>(`users?friend=${friend}`,).then((response: AxiosResponse) => response.data)
+    },
     follow(id: number) {
         return instance.post<CommonResponseType>(`follow/${id}`, {},).then(response => response.data)
     },

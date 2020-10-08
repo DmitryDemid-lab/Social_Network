@@ -19,33 +19,6 @@ const Users = (props: UsersPropsType) => {
             )
         )};
     }
-        /*props.setUsers([
-            {
-                id: 1,
-                followed: false,
-                fullName: "Dmitry",
-                status: "I'm boss",
-                location: {city: "Minsk", country: "Belarus"},
-                photoUrl: 'https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/7_avatar-512.png',
-            },
-            {
-                id: 2,
-                followed: true,
-                fullName: "Ivan",
-                status: "I'm driver",
-                location: {city: "Moscow", country: "Russia"},
-                photoUrl: 'https://cdn.iconscout.com/icon/free/png-512/avatar-367-456319.png',
-            },
-            {
-                id: 3,
-                followed: false,
-                fullName: "Sasha",
-                status: "I'm manager",
-                location: {city: "kiev", country: "Ukraine"},
-                photoUrl: 'https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/8_avatar-512.png',
-            }
-        ])*/
-
     return (
         <div className={s.Users}>
             <button onClick={getUsers}>Get users</button>

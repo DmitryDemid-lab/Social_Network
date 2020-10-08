@@ -10,11 +10,13 @@ type MyPostsMapDispatchToPropsType = {
 
 type MyPostsMapStateToPropsType = {
     posts: Array<PostsType>
+    photo: string
 }
 
 const MapStateToProps = (state: AppStateType): MyPostsMapStateToPropsType => {
     return {
         posts: state.profilePage.posts,
+        photo: state.profilePage.profile.photos.small
     }
 }
 
