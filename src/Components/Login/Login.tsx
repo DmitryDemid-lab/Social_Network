@@ -47,7 +47,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, LoginFormPropsType> & 
 
         {error && <div className={s.formSummaryError}>{error}</div>}
         <div>
-            <Button>Login</Button>
+            <Button type={"submit"}>Login</Button>
         </div>
     </form>
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import s from '../Dialogs.module.css';
+import userAvatar from '../../../assets/images/UserAvatar.png'
 
 
 type MessagePropsTypes = {
@@ -8,7 +9,7 @@ type MessagePropsTypes = {
 const Message = (props: MessagePropsTypes) => {
     return (
         <div className={s.messageEl}>
-            <img className={s.messageAvatar} src="https://i.ya-webdesign.com/images/avatar-png-1.png" alt="avatarIcon"/>
+            <img className={s.messageAvatar} src={userAvatar} alt="avatarIcon"/>
             <div className={s.message}>{props.message}</div>
         </div>
     )

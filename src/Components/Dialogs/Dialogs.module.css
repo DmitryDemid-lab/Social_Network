@@ -1,27 +1,56 @@
 .dialogs {
     display: grid;
     grid-template-columns: 2fr 10fr;
+    box-shadow: 0px 0px 20px -6px rgba(0,0,0,1);
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 26px 16px;
+    width: 80%;
+    margin: 0 auto;
+}
 
+.dialog a{
+   text-decoration: none;
+    font-size: 1.25rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: 0.0075em;
+    color: rgba(0, 0, 0, 0.87);
 }
 
 .dialogsItems {
     padding: 10px;
-    color: #fff;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
 }
-
-.dialogsItems .active {
-    color: #ffd700;
-}
-
-.dialogsItems .dialog {
-
+.dialogsItems ul li:nth-child(1) {
+    background-color: rgba(0, 0, 0, 0.24);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
 }
 
 .messages {
-    padding: 10px;
-    background-color: #fff;
-    box-shadow: -6px 0 4px -4px rgba(0, 0, 0, .2);
-    height: 100%;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.24);
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.messagesItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.messagesItem:nth-child(even){
+   align-items: flex-end;
+}
+
+.messageForm {
+    display: flex;
+    align-self: flex-end;
 }
 
 .messageEl {
@@ -31,7 +60,7 @@
 
 .messages .message {
     color: #fff;
-    background-color: #28717a;
+    background-color: #f50057;
     margin: 5px;
     border-radius: 20px;
     padding: 10px;

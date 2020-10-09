@@ -5,6 +5,7 @@ import Message from "./Message/Message";
 import {DialogsPageType} from "../../redux/store";
 import {Redirect} from 'react-router-dom';
 import {AddMessageFormDataType, AddMessageFormRedux} from "./Message/AddMessageForm";
+import {List, ListItem} from "@material-ui/core";
 
 
 type DialogsPagePropsType = {
@@ -16,8 +17,9 @@ type DialogsPagePropsType = {
 
 function Dialogs(props: DialogsPagePropsType) {
 
-    let dialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id} key={d.id}/>)
-    let messagesElements = props.dialogsPage.messages.map(m => <Message message={m.message} key={m.id}/>)
+    let dialogsElements = props.dialogsPage.dialogs.map(d => <ListItem><DialogItem name={d.name} id={d.id} key={d.id}/></ListItem>)
+    let messagesElements = props.dialogsPage.messages.map(m => <div className={s.messagesItem}><Message
+        message={m.message} key={m.id}/></div>)
 
     let addNewMessage = (values: AddMessageFormDataType) => {
         props.addMessage(values.newMessageBody)
@@ -28,11 +30,13 @@ function Dialogs(props: DialogsPagePropsType) {
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-                {dialogsElements}
+                <List>{dialogsElements}</List>
             </div>
-            <div className={s.messages}>
-                {messagesElements}
-                <AddMessageFormRedux onSubmit={addNewMessage}/>
+            <div>
+                <div className={s.messages}>
+                    {messagesElements}
+                    <AddMessageFormRedux onSubmit={addNewMessage}/>
+                </div>
             </div>
         </div>
     )
