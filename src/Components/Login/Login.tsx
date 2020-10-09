@@ -1,12 +1,13 @@
 import React from 'react';
 import s from './Login.module.css';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Input} from "../common/FormsControls/FormControls";
+import {FormCheckbox, FormInput} from "../common/FormsControls/FormControls";
 import {maxLength, requiredField} from "../common/validators/Validators";
 import {connect} from "react-redux";
 import {login} from "../../redux/AuthReducer/AuthReducer";
 import {Redirect} from "react-router-dom";
 import {AppStateType} from "../../redux/reduxStore";
+import {Button} from "@material-ui/core";
 
 
 const Login = (props: LoginPropsType) => {
@@ -25,29 +26,28 @@ const Login = (props: LoginPropsType) => {
 const maxLength30 = maxLength(30)
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType, LoginFormPropsType> & LoginFormPropsType> = ({handleSubmit, captchaUrl, error}) => {
-    return <form onSubmit={handleSubmit}>
+    return <form onSubmit={handleSubmit} className={s.loginForm}>
         <div>
-            <Field placeholder={'Email'} name={'email'} component={Input}
+            <Field placeholder={'Email'} name={'email'} component={FormInput}
                    validate={[requiredField, maxLength30]}/>
         </div>
         <div>
-            <Field type={'password'} placeholder={'Password'} name={'password'} component={Input}
+            <Field type={'password'} placeholder={'Password'} name={'password'} component={FormInput}
                    validate={[requiredField, maxLength30]}/>
         </div>
         <div className={s.rememberMe}>
-            <Field type={'checkbox'} name={'rememberMe'} component={Input}/>
-            <label htmlFor={'rememberMe'}>remember me</label>
+            <Field name={'rememberMe'} component={FormCheckbox} label={'Remember me'}/>
         </div>
 
         {captchaUrl && <img src={captchaUrl} alt="captcha"/>}
         {captchaUrl && <div>
-            <Field placeholder={'Enter symbols from image'} name={'captcha'} component={Input}
+            <Field placeholder={'Enter symbols from image'} name={'captcha'} component={FormInput}
                    validate={[requiredField, maxLength30]}/>
         </div>}
 
         {error && <div className={s.formSummaryError}>{error}</div>}
         <div>
-            <button>Log in</button>
+            <Button>Login</Button>
         </div>
     </form>
 }
@@ -62,7 +62,7 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
 export default connect(mapStateToProps, {login})(Login);
 
 //TYPES
-type LoginFormPropsType  = {
+type LoginFormPropsType = {
     captchaUrl: string | null
 }
 type FormDataType = {

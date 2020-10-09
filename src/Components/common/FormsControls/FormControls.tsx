@@ -1,7 +1,9 @@
 import React from "react";
 import s from './FormControls.module.css'
-import {WrappedFieldMetaProps} from "redux-form";
-import {TextField} from "@material-ui/core";
+import {WrappedFieldMetaProps} from "redux-form"
+import {FormControlLabel, TextField} from "@material-ui/core"
+import { Input } from '@material-ui/core'
+import { Checkbox } from '@material-ui/core';
 
 export const Textarea = (field: FieldType) => {
     const hasError = field.meta.touched && field.meta.error
@@ -13,11 +15,25 @@ export const Textarea = (field: FieldType) => {
     </div>
 }
 
-export const Input = (field: FieldType) => {
+export const FormInput = (field: FieldType) => {
     const hasError = field.meta.touched && field.meta.error
 
     return <div className={s.formControl + ' ' + (hasError ? s.error : '')}>
-        <input {...field.input} placeholder={field.placeholder} type={field.type}/>
+        <Input {...field.input} placeholder={field.placeholder} type={field.type} color={"secondary"}/>
+        <div>
+            {hasError && <span>{field.meta.error}</span>}
+        </div>
+    </div>
+}
+export const FormCheckbox = (field: FieldType) => {
+    const hasError = field.meta.touched && field.meta.error
+
+    return <div className={s.formControl + ' ' + (hasError ? s.error : '')}>
+        <FormControlLabel
+            {...field.input}
+            control={<Checkbox name={field.name} color={"secondary"}/>}
+            label={field.label}
+        />
         <div>
             {hasError && <span>{field.meta.error}</span>}
         </div>
@@ -26,11 +42,9 @@ export const Input = (field: FieldType) => {
 
 type FieldType = {
     meta: WrappedFieldMetaProps
-    /*{
-        touched: boolean
-        error: string
-    }*/
     placeholder: string | undefined
     type: string
     input: string
+    name: string
+    label: string
 }

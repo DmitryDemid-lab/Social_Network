@@ -40,9 +40,7 @@ export const setCaptchaUrl = (captchaUrl: string) => ({type: SET_CAPTCHA_URL, ca
 
 //THUNKS
 export const getAuthUserData = (): ThunkType => async (dispatch) => {
-    dispatch(toggleIsFetching(true))
     const responseData = await authAPI.getAuth()
-    dispatch(toggleIsFetching(false))
     if (responseData.resultCode === ResultCodeEnum.Success) {
         dispatch(setAuthUserData({...responseData.data, isAuth: true}))
     }
@@ -77,10 +75,10 @@ export const logout = (): ThunkType =>
     async (dispatch) => {
         dispatch(toggleIsFetching(true))
         const responseData = await authAPI.logOut()
-        dispatch(toggleIsFetching(true))
         if (responseData.resultCode === ResultCodeEnum.Success) {
             dispatch(setAuthUserData({isAuth: false, email: '', id: null, login: ''}))
         }
+        dispatch(toggleIsFetching(false))
 
     }
 

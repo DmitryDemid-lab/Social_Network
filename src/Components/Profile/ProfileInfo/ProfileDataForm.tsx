@@ -1,6 +1,6 @@
 import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Input, Textarea} from "../../common/FormsControls/FormControls";
+import {FormInput, Textarea} from "../../common/FormsControls/FormControls";
 import {requiredField} from "../../common/validators/Validators";
 import {GetProfileResponseType} from "../../../API/API";
 import s from './ProfileInfo.module.css';
@@ -24,7 +24,7 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormType> & PropsTy
         </div>
         <h3>ABOUT ME:</h3>
         <div>
-            <b>Full name:</b> <Field placeholder={'Full name'} name={'fullName'} component={Input}
+            <b>Full name:</b> <Field placeholder={'Full name'} name={'fullName'} component={FormInput}
                                      validate={[requiredField]}/>
         </div>
         <div>
@@ -40,13 +40,13 @@ const ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormType> & PropsTy
             <div>
                 {Object.keys(profile.contacts).map(key => {
                     return <div className={s.contact}>
-                        <b>{key}</b>: <Field key={key} placeholder={key} name={`contacts.${key}`} component={Input}/>
+                        <b>{key}</b>: <Field key={key} placeholder={key} name={`contacts.${key}`} component={FormInput}/>
                     </div>
                     }
                 )}
             </div>
         <div>
-            <b>Is looking for a job:</b> <Field type={'checkbox'} name={'lookingForAJob'} component={Input}/>
+            <b>Is looking for a job:</b> <Field type={'checkbox'} name={'lookingForAJob'} component={FormInput}/>
         </div>
         <div>
             <b>My professional skills:</b> <Field
