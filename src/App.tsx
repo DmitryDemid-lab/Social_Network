@@ -45,7 +45,7 @@ class App extends React.Component<AppPropsType> {
                 {this.props.isFetching ? <div className='preLoader'><LinearProgress color={"secondary"}/></div> : null}
                 <div className="Container">
                     {/*ВСТАВИТЬ КНОПКУ С ЗАНУЛЕНИЕМ ОШИБКИ*/}
-                    {this.props.error && <div className='error'><h4>{this.props.error}</h4></div>}
+                    {/*{this.props.error && <div className='error'><h4>{this.props.error}</h4></div>}*/}
                     <Switch>
                         <Route path='/' exact><Redirect to='/profile'/></Route>
                         <Route path="/profile/:userId?"
