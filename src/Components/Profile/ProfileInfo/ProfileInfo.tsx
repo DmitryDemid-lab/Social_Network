@@ -45,12 +45,13 @@ type ProfileDataType = {
 
 const ProfileData = (props: ProfileDataType) => {
     return <div className={s.profileData}>
-        <div className={s.editButton}>
-            {props.isOwner && <Button onClick={props.activateEditMode} size={"small"}><EditIcon/></Button>}
-        </div>
 
         <div className={s.myName}>
             <h3>Hello, my name is <span>{props.profile.fullName}</span></h3>
+        </div>
+
+        <div className={s.editButton}>
+            {props.isOwner && <Button onClick={props.activateEditMode} size={"small"}><EditIcon/></Button>}
         </div>
 
         <div>

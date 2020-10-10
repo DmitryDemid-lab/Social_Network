@@ -17,8 +17,9 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import MailIcon from '@material-ui/icons/Mail';
 import {ListItemLink} from "../common/ListItemLink/ListItemLink";
 import HeaderConnect from "../Header/Header.container";
+import s from './Navigation.module.css'
 
-const drawerWidth = 400;
+const drawerWidth = 360;
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -86,11 +87,9 @@ export function NavigationBar(props: any) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
-
     const handleDrawerOpen = () => {
         setOpen(true);
     };
-
     const handleDrawerClose = () => {
         setOpen(false);
     };
@@ -114,14 +113,14 @@ export function NavigationBar(props: any) {
                     >
                         <MenuIcon/>
                     </IconButton>
-                    <Typography variant="h6" noWrap>
+                    <Typography variant="h6" noWrap className={s.title}>
                         Social Network
                     </Typography>
-                    <HeaderConnect/>
+                    {!open && <HeaderConnect/>}
                 </Toolbar>
             </AppBar>
             <Drawer
-                className={classes.drawer}
+                className={`${classes.drawer} ${s.navMenu}`}
                 variant="persistent"
                 anchor="left"
                 open={open}
