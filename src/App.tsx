@@ -43,7 +43,6 @@ class App extends React.Component<AppPropsType> {
                 <NavigationBar/>
                 <HeaderConnect/>
                 {this.props.isFetching ? <div className='preLoader'><LinearProgress color={"secondary"}/></div> : null}
-                {console.log('IS FETCHING: ', this.props.isFetching)}
                 <div className="Container">
                     {/*ВСТАВИТЬ КНОПКУ С ЗАНУЛЕНИЕМ ОШИБКИ*/}
                     {this.props.error && <div className='error'><h4>{this.props.error}</h4></div>}

@@ -8,6 +8,7 @@ const ADD_POST = 'profile/ADD-POST';
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
 const SET_USER_STATUS = 'profile/SET_USER_STATUS';
 const SAVE_PHOTO_SUCCESS = 'profile/SAVE_PHOTO_SUCCESS';
+const SET_IS_FOLLOWING = 'profile/SET_IS_FOLLOWING';
 
 export let initialState: InitialStateType = {
     posts: [
@@ -19,6 +20,7 @@ export let initialState: InitialStateType = {
         photos: {}
     } as GetProfileResponseType,
     status: '',
+    isFollowing: false
 };
 
 const profileReducer = (state = initialState, action: ProfileActionsType): InitialStateType => {
@@ -52,6 +54,11 @@ const profileReducer = (state = initialState, action: ProfileActionsType): Initi
                 profile: {...state.profile, photos: action.photos}
             }
         }
+        case "profile/SET_IS_FOLLOWING":
+            return {
+                ...state,
+                isFollowing: action.isFollowing
+            }
 
         default:
             return state;
@@ -66,6 +73,7 @@ export const setUserProfile = (profile: GetProfileResponseType): SetUserProfileT
 })
 export const setUserStatus = (status: string): SetUserStatusType => ({type: SET_USER_STATUS, status})
 export const savePhotoSuccess = (photos: ProfilePhotosType) => ({type: SAVE_PHOTO_SUCCESS, photos}) as const
+export const setIsFollowing = (isFollowing: boolean) => ({type: SET_IS_FOLLOWING, isFollowing}) as const
 
 //THUNKS
 export const getProfile = (userID: string): ThunkType =>
@@ -145,11 +153,13 @@ export type InitialStateType = {
     posts: Array<PostsType>
     profile: GetProfileResponseType
     status: string
+    isFollowing: boolean
 }
 export type ProfileActionsType =
     | AddPostType
     | SetUserProfileType
     | SetUserStatusType
     | ReturnType<typeof savePhotoSuccess>
+    | ReturnType<typeof setIsFollowing>
 
 type ThunkType = ThunkAction<void, AppStateType, any, ProfileActionsType & any>

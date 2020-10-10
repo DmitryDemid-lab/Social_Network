@@ -6,11 +6,10 @@ import {getFriends, UsersType} from "../../../redux/UsersReducer/usersReducer";
 import {Friend} from "../../Users/Friend/Friend";
 
 export const Following = (props: FollowingPropsType) => {
+    const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getFriends(true))
     }, [])
-
-    const dispatch = useDispatch()
     const friends = useSelector<AppStateType, Array<UsersType>>(state => state.usersPage.friends)
 
     return <div className={s.Following}>

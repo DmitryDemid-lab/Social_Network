@@ -2,6 +2,7 @@ import {usersAPI} from "../../API/API";
 import {AppStateType} from "../reduxStore";
 import {ThunkAction} from "redux-thunk";
 import {toggleIsFetching} from "../appReducer/appReducer";
+import {setIsFollowing} from "../ProfileReducer/profileReducer";
 
 const FOLLOW = 'users/FOLLOW';
 const UNFOLLOW = 'users/UNFOLLOW';
@@ -97,11 +98,12 @@ export const toggleFollowingProgress = (isFetching: boolean, userID: number): to
 })
 
 //FUNC
-const followUnfollowFlow = async (dispatch: any, userId: number, apiMethod: any, actionCreator: any) => {
+const followUnfollowFlow = async (dispatch: any, userId: number, apiMethod: any, actionCreator: any, isFollowing: boolean) => {
     dispatch(toggleFollowingProgress(true, userId))
     let responseData = await apiMethod(userId)
     if (responseData.resultCode == 0) {
         dispatch(actionCreator(userId))
+        dispatch(setIsFollowing(isFollowing))
     }
     dispatch(toggleFollowingProgress(false, userId))
 }
@@ -128,13 +130,13 @@ export const getFriends = (friend: boolean): ThunkType =>
 export const unFollow = (userId: number): ThunkType =>
     async (dispatch) => {
         const apiMethod = usersAPI.unFollow.bind(usersAPI)
-        followUnfollowFlow(dispatch, userId, apiMethod, unFollowSuccess)
+        followUnfollowFlow(dispatch, userId, apiMethod, unFollowSuccess, false)
     }
 
 export const follow = (userId: number): ThunkType =>
     async (dispatch) => {
         const apiMethod = usersAPI.follow.bind(usersAPI)
-        followUnfollowFlow(dispatch, userId, apiMethod, followSuccess)
+        followUnfollowFlow(dispatch, userId, apiMethod, followSuccess, true)
     }
 
 export default usersReducer;
