@@ -1,5 +1,5 @@
 .Login {
-    box-shadow: 0px 0px 20px -6px rgba(0,0,0,1);
+    box-shadow: 0px 0px 20px -6px rgba(0, 0, 0, 1);
     border-radius: 8px;
     background-color: #fff;
     padding: 26px;
@@ -14,7 +14,8 @@
     margin-bottom: 20px;
 }
 
-.loginForm {}
+.loginForm {
+}
 
 .formSummaryError {
     margin: 5px;
@@ -26,7 +27,20 @@
 .rememberMe {
     display: flex;
 }
+
 .rememberMe input {
     width: 12px;
     margin-right: 5px;
+}
+
+.formLabel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.formLabel p span {
+    font-size: inherit;
+    text-decoration: underline;
 }
